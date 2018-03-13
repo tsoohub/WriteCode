@@ -1,0 +1,64 @@
+<% provide(:organizer, "active") %>
+<div id="wrapper">
+    <%= render 'shared/admin_header'%>
+
+    <div id="page-wrapper" style="padding-top: 100px;">
+        <div class="container-fluid">
+
+          <div class="row">
+
+            <div class="col-md-12">
+              <h4><i class="fa fa-users lg" style="color: #337ab7;"></i> Бүртгэлтэй зохион байгуулагчдийн жагсаалт</h4>
+
+              <% if not flash[:success].blank? %>
+                
+                <div class="alert alert-success alert-dismissable">
+                <a class="panel-close close" data-dismiss="alert">×</a> 
+                <i class="fa fa-check-circle"></i>
+                <strong><%= flash[:success] %></strong>
+              </div>
+              <% end %>
+
+              <div class="table-responsive">
+                  <table id="mytable" class="table table-hover table-bordred table-striped">
+                    
+                   <thead>
+                    <th>Овог нэр</th>
+                    <th>Имэйл</th>
+                    <th>Мэргэжил</th>
+                    <th>Тухай</th>
+                    <th>Зураг</th>
+                    <th>Устгах</th>
+                   </thead>
+                   <tbody id="myTable">
+                      <% @organizerAll.each do |organ| %>
+                        <tr>
+                          <td><%= organ.fullname %></td>
+                          <td><%= organ.email %></td>
+                          <td><%= organ.major %></td>
+                          <td><%= organ.about_me %></td>
+                          <td>
+                            <img src="<%= organ.attachment %>" alt="Organizer" width="37" height="37" id="orgnizer_img">
+                          </td>
+                          <td>
+                            <p data-placement="top" data-toggle="tooltip" title="Delete">
+
+                              <%= link_to "устгах", organ, method: :delete, data: {confirm: "Та итгэлтэй байна уу?"}, :class=>"btn btn-danger btn-sm" %>
+                              
+                            </p>
+                          </td>
+                        </tr>
+                      <% end %>
+                    </tbody>
+                  </table>
+
+                  <div class="clearfix"></div>
+                  <ul class="pagination pagination-md pager pull-right" id="myPager"></ul>
+                </div>
+            </div>
+          </div>
+        </div>
+    </div>
+</div>
+
+<%= render 'shared/tablepagination'%>

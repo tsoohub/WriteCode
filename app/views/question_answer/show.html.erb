@@ -1,0 +1,164 @@
+<%= render 'shared/header_lesson' %>
+
+<div class="container" >
+	<div class="page-header" style="margin-top: 20px; margin-bottom: 10px;">
+		<h2 style="font-size: 1.5em; line-height: 1.2em;"><%= @question.title %></h2>
+		
+	</div>
+
+	<div class="row" style="margin-bottom: 50px;">
+		<% @student_q = Student.find(@question.student_id) %>
+
+		<% if @student_q.picture.blank? %>
+			<% @image = "/assets/default_75.png" %>
+		<% else %>
+			<% @image = @student_q.picture %>
+		<% end %>
+
+		<div class="col-md-1" style="border-top: 1px solid #ededed; padding-top: 11px;">
+			<img src="<%= @image %>" width="45" height="45" style="border-radius: 50%;"/>
+		</div>
+		<div class="col-md-7" style="border-top: 1px solid #ededed; padding: 12px 11px 15px 11px;">
+			<div id="garage-title">
+				<p class="text-left" style="font-size: 0.929em; float: left; font-family: 'Cabin', sans-serif; font-weight: bold; color: #A4A4A6;"><%= @student_q.fullname %></p>
+				<p class="text-right" style="font-size: 0.929em; float: right; font-weight: bold; color: #A4A4A6;"><%= (Time.now.strftime("%d").to_i - @question.created_at.strftime("%d").to_i)%> <%= " өдөр" %></p>
+				<div style="clear: both;"></div>
+			</div>
+			<% if not @question.picture.blank? %>
+				<img src="<%= @question.picture %>" alt="Асуултын зураг" class="img-responsive" style="margin-top: 15px; margin-bottom: 15px;"/>
+			<% end %>
+			<p style="font-family: 'Cabin', sans-serif;"><%= @question.ques %></p>
+
+			
+			<section style="position: relative; margin-top: 10px; margin-bottom: 20px; text-align: right;">
+				
+				<%= link_to "Буцах", ques_answer_path, :id => "back_to",:class => "btn btn-default", :data => { :no_turbolink => true } %>
+
+				<a data-toggle="modal" href="#answer" class="btn btn-default" id="answer_b"><i class="fa fa-reply"></i>  Хариулах</a>
+			</section>
+			<div >
+    			<section style="margin: 20px 0 0 0;">
+    				<ul>
+    					<li style="float: left; padding: 7px 10px; display: list-item; text-align: -webkit-match-parent;">
+    						<a href="#" style="line-height: 20px;">
+    							<h4 style="    margin: 1px 0 2px 0;color: #a4a4a6;font-weight: normal;font-size: 0.857em;line-height: 15px;">Асуусан</h4>
+    							<img alt="" width="20" height="20" src="<%= @image %>">
+    							<span class="relative-date date" title="October 30, 2015 2:08pm" data-time="1446185304212" data-format="medium" style="color: #a4a4a6;"><%= @question.created_at.strftime("%H") %> цагт</span>
+    						</a>
+    					</li>
+    					<li style="float: left; padding: 7px 10px; display: list-item; text-align: -webkit-match-parent;">
+    						<a href="#" style="line-height: 20px;">
+    							<h4 style="    margin: 1px 0 2px 0;color: #a4a4a6;font-weight: normal;font-size: 0.857em;line-height: 15px;">Сүүлд хариулсан</h4>
+
+    							<% @last_answers.each do |la| %>
+    								<% @active = la.created_at %>
+    								<% @ans = Student.find(la.student_id) %>
+    								<% if @ans.picture.blank? %>
+    									<% @image = "/assets/default_75.png" %>
+    								<% else %>
+    									<% @image = @ans.picture %>
+    								<% end %>
+    								<img alt="" width="20" height="20" src="<%= @image %>" class="avatar" title="ajaxblaster58947">
+    							<% end %>
+    						</a>
+    					</li>
+    					<li style="float: left; padding: 7px 10px; display: list-item; text-align: center;">
+    						<span class="number" title="2"><%= @question.answers.count %></span>
+    						<h4 style="font-size: 12px; color: #979798;">Хариулсан</h4>
+    					</li>
+    					<li style="float: left; padding: 7px 10px; display: list-item; text-align: center;">
+    						<span class="number" title="2"><%= @question.answers.count + 10 %></span>
+    						<h4 style="font-size: 12px; color: #979798;">Үзсэн</h4>
+    					</li>
+    					<li style="float: left; padding: 7px 10px; display: list-item; text-align: center;">
+    						<span class="number" title="2"><%= Time.now.strftime("%m") %> минут</span>
+    						<h4 style="font-size: 12px; color: #979798;">Идэвхижсэн</h4>
+    					</li>
+    				</ul>
+    			</section>
+    		</div>
+		</div>
+		<div class="col-md-4">
+		</div>
+	</div>
+
+
+	<% @answers.each do |a| %>
+		<% @student = Student.find(a.student_id) %>
+		<div class="row" style="margin-bottom: 20px;">
+			
+			
+			<div class="col-md-7" style="border-top: 1px solid #ededed; padding: 12px 11px 15px 11px;">
+				<div id="garage-title">
+					<p class="text-left" style="font-size: 0.929em; float: left; font-family: 'Cabin', sans-serif; font-weight: bold; color: #A4A4A6;"><%= @student.fullname %></p>
+					<p class="text-right" style="font-size: 0.929em; float: right; font-family: 'Cabin', sans-serif; font-weight: bold; color: #A4A4A6;"><%= (Time.now.strftime("%d").to_i - a.created_at.strftime("%d").to_i)%> <%= " өдөр" %></p>
+					<div style="clear: both;"></div>
+				</div>
+				<% if not a.picture.blank? %>
+					<img src="<%= a.picture %>" alt="Хариултын зураг" class="img-responsive" style="margin-top: 15px; margin-bottom: 15px;"/>
+				<% end %>
+				<p style="font-family: 'Cabin', sans-serif;"><%= a.ans %></p>
+				
+			</div>
+
+			
+
+			<div class="col-md-1" style="border-top: 1px solid #ededed; padding-top: 11px;">
+
+				<% if @student.picture.blank? %>
+					<% @image = "/assets/default_75.png" %>
+	    		<% else %>
+	    			<% @image = @student.picture %>
+	  			<% end %>
+
+				<img src="<%= @image %>" width="45" height="45" style="border-radius: 50%;" />
+			</div>
+			<div class="col-md-4"></div>
+			
+		</div>
+	<% end %>
+</div>
+
+
+<div class="modal" id="answer">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header" style="background: #f2f2f2; color: #555555;">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+          		<h4 class="modal-title">Хариулах</h4>
+			</div>
+			<div class="modal-body" style="padding: 0; margin: 0;">
+				<%= form_for @answer, url: {:controller => "question_answer", :action => "create"}, :html=> {:class => "form center-block", multipart: true} do |f| %>
+
+					<% if not @answer.errors[:ans].blank? %>
+						<p class="error" id="q_error"></p>
+					<% end %>
+
+					<%= f.text_area :ans, :class => "form-control input-lg", rows: "4", :placeholder=>"Хариу бичих", :id=>"ask_text", :required => true %>
+
+					<%= f.hidden_field :question_id, :value => session["question_id"] %>
+
+					<%= f.hidden_field :student_id, :value => session["user_id"] %>
+			</div>
+			<div class="modal-footer" style="background: #f2f2f2; margin-top: 0;">
+
+				<div id="garage-title">
+					<p class="text-left" style="float: left; padding: 0;">
+						<%= f.file_field :picture, :id => "ask_picture", :class => "filestyle" %>
+					</p>
+					<p class="text-right" style="float: right;">
+						<%= f.submit "хариулах", :class=>"btn btn-primary", :id=>"ques_answer", :name=>"ques_answer"%>
+					</p>
+				<% end %>
+				</div>
+				<div style="clear: both;"></div>
+
+				
+			</div>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+	$(":file").filestyle({input: false, buttonText: "", buttonName: "btn-inverse", size: "lg", iconName: "glyphicon glyphicon-upload"});
+
+</script>

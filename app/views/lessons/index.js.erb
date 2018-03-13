@@ -1,0 +1,85 @@
+<% if @next == true %>  // Бүх зүйл ok үед л ажиллана
+
+  <% if @viewed_lesson >= @ch_lessons %>
+    <% if not Badge.exists?(:student_id => session["user_id"], :chapter_id => @ch_id) %>
+      $('#myModal').modal('show');//Тухайн бүлгийг хийж дуусгахад гаргах modal.
+      <% Badge.create(student_id: session["user_id"], chapter_id: @ch_id) %> // Бүлгийн урамшуулалыг хадгална
+    <% end %>
+  <% end %>
+  
+  var succ = document.getElementById("result");
+  succ.style.color = "#D6E4E1";
+  succ.innerHTML = "<%= @student_print %>";
+
+  <% if @finish == true %>
+    alert('Хичээл дууслаа');  
+    window.location.href="<%= 'chapter' %>";
+  <% else %>
+    window.location.href = "<%= 'index' %>";
+  <% end %>
+<% end %>
+
+
+
+
+<% if @error == true %>	// Хэрэглэгчийн бичсэн код алдаатай үед ажиллана
+	var err = document.getElementById("result");
+	err.style.color = "#f92672";
+	err.innerHTML = "<%= @student_print %>";
+
+<% else %> // Хэрэглэгчийн бичсэн код алдаагүй үед ажиллана
+	var succ = document.getElementById("result");
+	succ.style.color = "#D6E4E1";
+	succ.innerHTML = "<%= @student_print %>";
+
+  <% if not @filled.blank? %>
+    <% @filled.each do |f| %>
+      var filled = "<%= f %>".toString();
+      var filled = filled+"id";
+      document.getElementById(filled).style.color = "#55ACEE";
+      document.getElementById(filled).className = "fa fa-check-square-o fa-2x";
+    <% end %>
+  <% end %>
+
+  if("<%= @incorrect_id %>" != -1)  // Хэрэглэгчийн дутуу хийсэн зааврын id
+  {
+    var g = "<%= @incorrect_id %>";
+    var g1 = g.toString();
+    //$("#"+g1).popover('show');
+
+    g1 = g + "id";
+    document.getElementById(g1).style.color = "#D84C47";
+    document.getElementById(g1).className = "fa fa-times fa-2x";
+
+  }
+  else{
+    //document.getElementById("bottom_section").style.backgroundColor = "#232C31";
+    //document.getElementById("bottom_section").style.backgroundImage = "url('/assets/diag-green.png')";
+
+    $("#success_popover").popover('show');
+
+    document.getElementById('next').disabled = false;
+    
+  }
+<% end %>
+
+
+
+
+
+
+
+// Ямар нэгэн холбоогүй нэмэлт кодууд
+$('.popover-title').append('<button id="popovercloseid" type="button" class="close" data-dismiss="close">&times;</button>');
+$('#popovercloseid').on('click', function(e){
+  $('#result_panel').popover('hide');
+});
+$('html').on('mouseup', function(e) {
+    if(!$(e.target).closest('.popover').length) {
+        $('.popover').each(function(){
+            $(this.previousSibling).popover('hide');
+        });
+    }
+
+
+});

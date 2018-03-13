@@ -1,0 +1,22 @@
+<%= render '/shared/header_lesson' %>
+
+<div class="container" style="background-color: #background-color: #F1F2F2;"> <!-- Adds 15px left/right padding -->	
+
+	<div id="badge_header"><img src="<%= @image %>" alt="Badge" /> &nbsp;<b><%= link_to @name, show_path %></b> цуглуулсан урамшуулал
+	</div>
+
+	<div class="row" id="badge_col">
+		<% @badges.each do |b| %>
+		<% @badge = Chapter.find(b.chapter_id)%>
+		<div class="col-md-4">
+			<div class="thumbnail" id="thumbnail_padding">
+				<img src="<%= @badge.attachment %>" alt="Badge attachment" width="120px" height="121px"  />
+				<div class="caption center">
+					<h3><%= @badge.badge_name %></h3>
+					<small><%= @badge.created_at.strftime("%B %d, %Y") %></small>
+				</div>
+			</div>
+		</div>
+		<% end %>
+	</div>
+</div>

@@ -1,0 +1,64 @@
+<%= render 'shared/header_lesson' %>
+
+<div class="container-fluid" id="chapter_container">
+
+	<div class="jumbotron" style="margin-bottom: 0;">
+		<div class="container" id="chapter_head">
+			<%= link_to chapter1_path do %>
+				<i class="fa fa-chevron-left"></i> Бүлэгрүү буцах</a>
+			<% end %>
+
+			<img src="<%= @chapter.attachment %>" class="img-responsive" id="hero_pic" alt="Бүлэг" />
+
+			<h4 class="text-center"><%= @chapter.name %></h4>
+
+			<div class="progress" id="progress">
+			  <div class="progress-bar progress-bar-striped"
+			  role="progressbar" aria-valuenow="100" 
+			  aria-valuemin="0" aria-valuemax="100" 
+			  style="width: 100% ">100%</div>
+			</div>
+			<!--<center><button class="btn btn-primary" id="butt">Эхнээс нь үзэх</button></center>-->
+		</div>
+	</div>
+
+	<div class="row" id="chaplin">
+		<div class="col-xs-4 col-sm-4 col-md-4 text-center right_border">
+			<h5><%= @chapter.lessons.count %></h5>
+			<p>хичээл</p>
+		</div>
+		<div class="col-xs-4 col-sm-4 col-md-4 text-center right_border">
+			<h5><%= Lesson.where("chapter_id = ?", @chapter.id).sum(:score) %></h5>
+			<p>оноо</p>
+		</div>
+		<div class="col-xs-4 col-sm-4 col-md-4 text-center">
+			<h5><%= Student.count %></h5>
+			<p>суралцагч</p>
+		</div>
+	</div>
+
+</div>
+
+<div class="container">
+	<hr>
+	<div class="row">
+		<div class="col-md-12">
+			<% @chapter.lessons.each do |cl| %>
+				<div id="watched_lesson">
+					<%= link_to l_show_lesson_path(:id => cl.id) do %>
+						<div class="media">
+							<div class="media-left">
+								<img class="media-object " src="/assets/lessonbefore2.jpg" alt="" width="100px" height="95px" style="border-radius: 10px;"/>
+							</div>
+							<div class="media-body">
+								<h4 class="media-heading"><%= cl.name %> <span class="badge pull-right"><%= cl.score %> оноо</span></h4>
+								<p><%= cl.theory %></p>
+							</div>
+						</div>
+					<% end %>
+				</div>
+			<% end %>
+		</div>
+		
+	</div>
+</div>

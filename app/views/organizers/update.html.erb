@@ -1,0 +1,51 @@
+<% provide(:organizer, "active") %>
+
+<div id="wrapper">
+    <%= render 'shared/admin_header'%>
+
+    <h2 class="page-header" id="top_header">
+        <i class="fa fa-film"></i> Мэдээллээ шинэчлэх
+    </h2>
+
+    <div id="page-wrapper" style="margin-top: 1%;">
+        <div class="container-fluid">
+			<div class="row">
+				<div class="col-md-6" >
+					<%= form_for @organizer, url: {:controller => "organizers", :action => "edit" }, :html => {:class => "form-signin", multipart: true} do |f| %>
+
+						<% if not @organizer.errors[:fullname].blank? %><p class="error"><%= @organizer.errors[:fullname].to_sentence + "" %></p>
+						<% end %>
+						<%= f.text_field :fullname, :class=>"form-control", :placeholder=>"Өөрийн нэр", :id => "input" %>
+
+						<% if not @organizer.errors[:email].blank? %><p class="error"><%= @organizer.errors[:email].to_sentence + "" %></p>
+						<% end %>
+						<%= f.text_field :email, :class=>"form-control", :placeholder=>"Имэйл", :id => "input" %>
+
+						<% if not @organizer.errors[:password].blank? %><p class="error"><%= @organizer.errors[:password].to_sentence + "" %></p>
+						<% end %>
+						<%= f.text_field :password, :class=>"form-control", :placeholder=>"Нууц үг", :id => "input" %>
+
+						<% if not @organizer.errors[:major].blank? %><p class="error"><%= @organizer.errors[:major].to_sentence + "" %></p>
+						<% end %>
+						<%= f.text_field :major, :class=>"form-control", :placeholder=>"Мэргэжил", :id => "input" %>
+
+						<% if not @organizer.errors[:about_me].blank? %><p class="error"><%= @organizer.errors[:about_me].to_sentence + "" %></p><% end %>
+						<%= f.text_area :about_me, :class=>"form-control", :placeholder=>"Тухай", rows: "6", :id => "lesson-info" %>
+
+						<% if not @organizer.errors[:attachment].blank? %><p class="error"><%= @organizer.errors[:attachment].to_sentence + "" %></p>
+						<% end %>
+						<%= f.label "Зураг оруулах" %>
+				  	  	<%= f.file_field :attachment, :id => "badge_attachment", :class => "filestyle" %>
+
+				  	  	<%= f.submit "Шинэчлэх", :class=>"btn btn-lg btn-primary btn-block btn-signin top_margin" %>
+
+					<% end %>
+				</div>
+				<div class="col-md-6">
+
+					<%= render 'shared/instruction' %>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

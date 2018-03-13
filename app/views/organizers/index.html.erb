@@ -1,0 +1,290 @@
+<% provide(:admin, "active") %>
+
+<div id="wrapper">
+
+    <%= render 'shared/admin_header'%>
+
+    <div id="page-wrapper">
+
+	    <div class="container-fluid">
+
+	        <!-- Page Heading -->
+	        <div class="row">
+	            <div class="col-lg-12">
+	                <h3 class="page-header" style="margin-top: 6%; font-family: 'Cabin', sans-serif; color: #929292;">
+	                    <i class="fa fa-dashboard"></i> Удирдлагын бааз
+	                </h3>
+	            </div>
+	        </div>
+
+	        <div class="row">
+	            <div class="col-lg-3 col-md-6" >
+	                <div class="panel panel-inverse">
+	                    <div class="panel-heading" style="background-color: #5D9CEC;">
+	                        <div class="row">
+	                            <div class="col-xs-3">
+	                                <i class="fa fa-book fa-4x"></i>
+	                            </div>
+	                            <div class="col-xs-9 text-right">
+	                                <div class="huge"><%= @organizer.lessons.count %></div>
+	                                <div class="font_style">хичээл оруулсан</div>
+	                            </div>
+	                        </div>
+	                    </div>
+	                    <a href="#">
+	                        <div class="panel-footer blue">
+	                            <span class="pull-left">Дэлгэрэнгүй...</span>
+	                            <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+	                            <div class="clearfix"></div>
+	                        </div>
+	                    </a>
+	                </div>
+	            </div>
+	            <div class="col-lg-3 col-md-6">
+	                <div class="panel panel-inverse">
+	                    <div class="panel-heading" style="background-color: #7266BA;">
+	                        <div class="row">
+	                            <div class="col-xs-3">
+	                                <i class="fa fa-film fa-4x"></i>
+	                            </div>
+	                            <div class="col-xs-9 text-right">
+	                                <div class="huge"><%= @organizer.medias.count %></div>
+	                                <div class="font_style">видео оруулсан</div>
+	                            </div>
+	                        </div>
+	                    </div>
+	                    <a href="#">
+	                        <div class="panel-footer pink">
+	                            <span class="pull-left">Дэлгэрэнгүй...</span>
+	                            <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+	                            <div class="clearfix"></div>
+	                        </div>
+	                    </a>
+	                </div>
+	            </div>
+	            <div class="col-lg-3 col-md-6">
+	                <div class="panel panel-inverse">
+	                    <div class="panel-heading" style="background-color: #37BC9B;">
+	                        <div class="row">
+	                            <div class="col-xs-3">
+	                                <i class="fa fa-folder-o fa-4x"></i>
+	                            </div>
+	                            <div class="col-xs-9 text-right">
+	                                <div class="huge"><%= @organizer.chapters.count %></div>
+	                                <div class="font_style">бүлэг үүсгэсэн</div>
+	                            </div>
+	                        </div>
+	                    </div>
+	                    <a href="#">
+	                        <div class="panel-footer ggreen">
+	                            <span class="pull-left">Дэлгэрэнгүй...</span>
+	                            <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+	                            <div class="clearfix"></div>
+	                        </div>
+	                    </a>
+	                </div>
+	            </div>
+	            <div class="col-lg-3 col-md-6">
+	                <div class="panel panel-inverse">
+	                    <div class="panel-heading" style="background-color: #FF902B;">
+	                        <div class="row">
+	                            <div class="col-xs-3">
+	                                <i class="fa fa-code-fork fa-4x"></i>
+	                            </div>
+	                            <div class="col-xs-9 text-right">
+	                                <div class="huge"><%= @organizer.chapters.count %></div>
+	                                <div class="font_style">тайлбар оруулсан</div>
+	                            </div>
+	                        </div>
+	                    </div>
+	                    <a href="#">
+	                        <div class="panel-footer yellow">
+	                            <span class="pull-left">Дэлгэрэнгүй...</span>
+	                            <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+	                            <div class="clearfix"></div>
+	                        </div>
+	                    </a>
+	                </div>
+	            </div>
+	        </div>
+	        <!-- /.row -->
+
+	        <div class="row">
+	            <div class="col-lg-8">
+	                <div class="panel panel-inverse">
+	                    <div class="panel-heading">
+	                        <h3 class="panel-title"><i class="fa fa-bar-chart-o fa-fw"></i> Хичээлийн график</h3>
+	                    </div>
+	                    <div class="panel-body">
+	                        <div id="area-example"></div>
+
+
+	                    </div>
+	                </div>
+	            </div>
+	            <div class="col-lg-4">
+                        <div class="panel panel-inverse">
+                            <div class="panel-heading">
+                                <h3 class="panel-title"><i class="fa fa-pie-chart"></i> Бүлгийн график</h3>
+                            </div>
+                            <div class="panel-body">
+                                <div id="donut-chapter"></div>
+                            </div>
+                        </div>
+                    </div>
+	        </div>
+	        <!-- /.row -->
+
+	        <div class="row">
+	            <div class="col-lg-4">
+	                <div class="panel panel-inverse">
+	                    <div class="panel-heading">
+	                        <h5 class="panel-title green"><i class="fa fa-film fa-fw"></i> Видео</h5>
+	                    </div>
+	                    <div class="panel-body">
+	                        <div class="table-responsive">
+	                            <table class="table table-bordered table-hover table-striped">
+	                                <thead>
+	                                    <tr>
+	                                        <th>ID</th>
+	                                        <th>Видео нэр</th>
+	                                        <th>Зураг</th>
+	                                    </tr>
+	                                </thead>
+	                                <tbody>
+	                                <% @videos.each do |st| %>
+		                                    <tr>
+		                                        <td><%= st.id %></td>
+		                                        <td><%= st.name %></td>
+		                                        <td>
+		                                        	<img src="<%= st.attachment %>" width="50" height="50" style="border-radius: 50%;">
+		                                        </td>
+		                                    </tr>
+	                                    <% end %>
+	                                </tbody>
+	                            </table>
+	                        </div>
+	                        <div class="text-right">
+	                            <a href="#"><i class="fa fa-arrow-circle-right"></i> үзэх</a>
+	                        </div>
+	                    </div>
+	                </div>
+	            </div>
+	            <div class="col-lg-4">
+	                <div class="panel panel-inverse">
+	                    <div class="panel-heading">
+	                        <h5 class="panel-title green"><i class="fa fa-folder-o fa-fw"></i> Бүлэг</h5>
+	                    </div>
+	                    <div class="panel-body">
+	                        <div class="list-group">
+	                        	<% @chapter.each do |c| %>
+		                            <a href="#" class="list-group-item font_style">
+		                                <span class="badge"><%= c.lessons.count %> хичээл</span>
+		                                <img src="<%= c.attachment %>" width="50" height="50"> <%= c.name %>
+		                            </a>
+	                            <% end %>
+	                        </div>
+	                        <div class="text-right">
+	                            <a href="#"><i class="fa fa-arrow-circle-right"></i> үзэх</a>
+	                        </div>
+	                    </div>
+	                </div>
+	            </div>
+	            <div class="col-lg-4">
+	                <div class="panel panel-inverse">
+	                    <div class="panel-heading">
+	                        <h5 class="panel-title green"><i class="fa fa-users fa-fw"></i> Сүүлд бүртгүүлсэн</h5>
+	                    </div>
+	                    <div class="panel-body">
+	                        <div class="table-responsive">
+	                            <table class="table table-bordered table-hover table-striped">
+	                                <thead>
+	                                    <tr>
+	                                        <th>ID</th>
+	                                        <th>Овог нэр</th>
+	                                        <th>Зураг</th>
+	                                    </tr>
+	                                </thead>
+	                                <tbody>
+	                                	<% @student.each do |st| %>
+		                                    <tr>
+		                                        <td><%= st.id %></td>
+		                                        <td><%= st.fullname %></td>
+		                                        <td>
+		                                        	<% if st.picture.blank? %>
+		                                        		<img src="/assets/logo12.png" width="50" height="50" style="border-radius: 50%;">
+		                                        	<% else %>
+		                                        		<img src="<%= st.picture %>" width="50" height="50" style="border-radius: 50%;">
+		                                        	<% end %>
+		                                        </td>
+		                                    </tr>
+	                                    <% end %>
+	                                </tbody>
+	                            </table>
+	                        </div>
+	                        <div class="text-right">
+	                            <a href="#"><i class="fa fa-arrow-circle-right"></i> үзэх</a>
+	                        </div>
+	                    </div>
+	                </div>
+	            </div>
+	        </div>
+	        <!-- /.row -->
+
+	    </div>
+	    <!-- /.container-fluid -->
+	</div>
+</div>
+
+
+
+
+<script type="text/javascript">
+	
+
+	Morris.Area({
+	  element: 'area-example',
+	  data: [
+	    { month: '2015-01', a: 1000},
+	    { month: '2015-02', a: 800},
+	    { month: '2015-03', a: 830},
+	    { month: '2015-04', a: 609},
+	    { month: '2015-05', a: 805},
+	    { month: '2015-06', a: 490},
+	    { month: '2015-07', a: 520},
+	    { month: '2015-08', a: 600},
+	    { month: '2015-09', a: 720},
+	    { month: '2015-10', a: 500},
+	    { month: '2015-11', a: 900},
+	    { month: '2015-12', a: 930}
+	  ],
+	  xkey: 'month',
+	  ykeys: ['a'],
+	  labels: ['Суралцагч сар'],
+	  backgroundColor: "#5D9CEC"
+	});
+
+	Morris.Donut({
+	  element: 'donut-chapter',
+	  data: [
+	    {label: "Өгөгдлийн төрөл", value: 12},
+	    {label: "Хувьсагч зарлагаа", value: 30},
+	    {label: "Нөхцөл шалгах", value: 18},
+	    {label: "For давталт", value: 25},
+	    {label: "While давталт", value: 40},
+	    {label: "Функц зарлах, ашиглалт", value: 11}
+	  ],
+	  backgroundColor: '#2c2c2c',
+	  labelColor: '#929292',
+	  colors: [
+	    '#5D9CEC',
+	    '#7266BA',
+	    '#37BC9B',
+	    '#44C2E8',
+	    "#FF902B",
+	    "#F05050"
+	  ],
+	  formatter: function (x) { return x + "%"}
+	});
+
+</script>

@@ -1,0 +1,4 @@
+<% if not @question.errors[:ques].blank? %>
+	document.getElementById("q_error").innerHTML = <%= @question.errors[:ques] %>;
+
+<% end %>

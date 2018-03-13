@@ -1,0 +1,165 @@
+<%= render '/shared/header_lesson' %>
+
+<div class="container-fluid" style="padding: 0;"> <!-- Adds 15px left/right padding -->
+  
+  <div id="top_section">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-2">
+          <img src="<%= @image %>" class="thumbnail" width="100%"/>
+        </div>
+        <div class="col-md-6">
+          <h3><%= @name %> <span class="label label-default" style="font-size: 10px;">суралцагч</span></h3>
+          <p><%= @email %></p>
+          <p><i class="fa fa-map-marker"></i> <%= @location %></p>
+          <p><i class="fa fa-tag"></i> <a href="#">http://www.writecode.mn</a></p>
+          <ul id="list_for_social">
+            <li><a href="#"><i class="fa fa-facebook circle"></i></a></li>
+            <li><a href="#"><i class="fa fa-google-plus circle"></i></a></li>
+            <li><a href="#"><i class="fa fa-github circle"></i></a></li>
+          </ul>
+        </div>
+        <div class="col-md-4">
+          <div id="textbox_f">
+            <p class="alignleft">Өнөөдрийн оноо</p>
+            <p class="alignright">Хамгийн өндөр оноо: <b><% @best = Completed.where("student_id = ?", session["user_id"]).order("take_score desc").first.take_score %>
+              <% if @best.blank? %>
+                <%= 0 %>
+              <% else %>
+                <%= @best %>
+              <% end %>
+            </b></p>
+          </div>
+          <div style="clear: both;"></div>
+          <p id="today_score"> <%= @today_scores %>  </p>
+          <div id="textbox">
+            <p class="alignleft"><b id="big"> <%= @total_scores %> </b> нийт оноо</p>
+            <p class="alignright">
+              <b id="big"><%= @total_date %></b> нийт өдөр
+            </p> 
+          </div>
+          <div style="clear: both;"></div>
+          <p>
+            Хамгийн сүүлд код бичсэн: <%= @last_coded %>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="row" id="top_size_8">
+      <div class="col-md-4">
+        <p><b>Одоогийн урамшуулал</b></p>
+        <ul id="badge_s">
+          <% @badges.each do |b| %>
+            <li><img src="<%= Chapter.find(b.chapter_id).attachment %>" width="45px" height="45px" class="img-circle" /></li>
+          <% end %>
+
+        </ul>
+        <p class="text-left" style="margin-top: 10px;"><%= link_to "Бүгдийн харах", badge_path %></p>
+
+        <p id="lesson_h">Хичээлүүд</p>
+        <ul id="lesson_v">
+          <% @lessons.each do |le| %>
+            <li><img src="<%= Chapter.find(Lesson.find(le.lesson_id).chapter_id).attachment %>" width="20px" height="20px" id="less_img" />
+              <%= link_to Lesson.find(le.lesson_id).name, show_lesson_path(:id => le.lesson_id) %>
+            </li>
+          <% end %>
+
+        </ul>
+      </div>
+      <div class="col-md-8">
+        <p><b>Бүлгүүд</b></p>
+        
+        <% @all_badges.each_with_index do |ch, index| %>
+          <% @chapter = Chapter.find(ch.chapter_id) %>
+
+          <% @total_points = 0 %>
+          <% @chapter.lessons.each do |cl| %>
+            <% @total_points += cl.score %>
+          <% end %>
+
+          <div class="caption" id="caption_h">
+            <div id="textbox" onclick="show_description(<%= index %>)">
+              <h4 class="alignleft"><%= @chapter.name %></h4>
+              <p class="alignright"><b><%= @total_points %> оноо</b> цуглуулсан <span class="glyphicon glyphicon-star" aria-hidden="true"></span> <%= @chapter.lessons.count %> / <%= @chapter.lessons.count %></p>
+            </div>
+            <div style="clear: both;"></div>
+            
+            <p id="<%= index %>" class="hidden"><%= @chapter.description %></p>
+          </div>
+        <% end %>
+
+
+        <p><b>Гүйцэтгэлийн хувь</b></p>
+        <div class="row">
+          <div class="col-md-4">
+            <div class="thumbnail" id="pro_thumb">
+              <div class="caption text-center">
+                <h4>Өгөгдлийн төрөл</h4>
+              </div>
+
+              <div class="second circle text-center" >
+                  <br><br><strong></strong>
+              </div>
+
+              <p class="text-center top_margin">Хамгийн сүүлд</p>
+              <p class="text-center"><b><%= @last_day %></b> өдрийн өмнө</p>
+              
+            </div>
+          </div>
+
+          <div class="col-md-4">
+            <div class="thumbnail" id="pro_thumb">
+              <div class="caption text-center">
+                <h4>Хувьсагчийн зарлагаа</h4>
+              </div>
+
+              <div class="second circle text-center" >
+                  <br><br><strong></strong>
+              </div>
+
+              <p class="text-center top_margin">Хамгийн сүүлд</p>
+              <p class="text-center"><b><%= @last_day %></b> өдрийн өмнө</p>
+              
+            </div>
+          </div>
+
+          <div class="col-md-4">
+            <div class="thumbnail" id="pro_thumb">
+              <div class="caption text-center">
+                <h4>For давталт</h4>
+              </div>
+
+              <div class="second circle text-center" >
+                  <br><br><strong></strong>
+              </div>
+
+              <p class="text-center top_margin">Хамгийн сүүлд</p>
+              <p class="text-center"><b><%= @last_day %></b> өдрийн өмнө</p>
+              
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+
+
+/*
+ * Example 2:
+ *   - default gradient
+ *   - listening to `circle-animation-progress` event and display the animation progress: from 0 to 100%
+ */
+$('.second.circle').circleProgress({
+    value: 1
+}).on('circle-animation-progress', function(event, progress) {
+    $(this).find('strong').html(parseInt(100 * progress) + '<i>%</i>');
+});
+
+
+</script>

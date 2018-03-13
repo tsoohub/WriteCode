@@ -1,0 +1,49 @@
+<% provide(:media, "active") %>
+<div id="wrapper">
+    <%= render 'shared/admin_header'%>
+
+    <div id="page-wrapper" style="padding-top: 6%;">
+        <div class="container-fluid">
+			<div class="row">
+				<div class="col-md-12">
+					<h4><i class="fa fa-th-large" style="color: #2EC866;"></i> Бүртгэлтэй бичлэгүүд</h4>
+					<% if not flash[:success].blank? %>
+		               <div class="alert alert-success alert-dismissable">
+			            <a class="panel-close close" data-dismiss="alert">×</a> 
+			            <i class="fa fa-check-circle"></i>
+			            <strong><%= flash[:success] %></strong>
+		              </div>
+		            <% end %>
+
+		            <div class="responsive-table">
+		            	<table id="mytable" class="table table-hover table-bordred table-striped">
+		            		<thead>
+		            			<th>Видео нэр</th>
+		            			<th>Бичлэг</th>
+		            			<th>Зураг</th>
+		            			<th>Оруулсан</th>
+		            			<th>Засах</th>
+		            			<th>Устгах</th>
+		            		</thead>
+		            		<tbody id="myTable">
+		            			<% @media_s.each do |m| %>
+		            			<tr>
+		            				<td><%= m.name %></td>
+		            				<td><%= m.video %></td><!--video_url -->
+		            				<td><img src="<%= m.attachment %>" alt="Зураг оруулаагүй" width="37" height="37" id="orgnizer_img"/></td>
+		            				<td><%= Organizer.find(m.organizer_id).fullname %></td>
+		            				<td><%= link_to "засах", mediaupdate_path(m), :class=>"btn btn-warning btn-sm" %></td>
+		            				<td><%= link_to "устгах", m, method: :delete, data: {confirm: "Та итгэлтэй байна уу?"}, :class=>"btn btn-danger btn-sm" %></td>
+		            			</tr>
+		            			<% end %>
+		            		</tbody>
+		            	</table>
+		            	<div class="clearfix"></div>
+                  		<ul class="pagination pagination-md pager pull-right" id="myPager"></ul>
+		            </div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<%= render 'shared/tablepagination'%>

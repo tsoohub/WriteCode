@@ -1,0 +1,118 @@
+<%= render 'shared/header_lesson' %>
+
+<div class="container" style="margin-top: 20px;">
+	<div class="row">
+		<div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+			<a data-toggle="modal" href="#ask" class="btn btn-default" style="border-radius: 0; background-color: #EDEDED; color: #4A4A4C; font-weight: bold; border: none;"><i class="fa fa-plus"></i> Шинэ асуулт</a>
+		</div>
+		<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+			<ul class="nav nav-pills" id="nav">
+			    <li class="active"><a href="#">Шинэ нь эхэндээ</a></li>
+			    <li><a href="#">Хамгийн их үзсэн</a></li>
+			  </ul>
+		</div>
+		<div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+			<form action="" class="search-form">
+                <div class="form-group has-feedback">
+            		<label for="search" class="sr-only">Хайх</label>
+            		<input type="text" class="form-control" name="search" id="search" placeholder="хайх">
+              		<span class="glyphicon glyphicon-search form-control-feedback"></span>
+            	</div>
+            </form>
+		</div>
+	</div>
+
+	<div class="row" style="margin-top: 20px;">
+		<div class="col-md-12">
+			<div class="table-responsive">
+				<table class="table">
+					<thead>
+						<tr>
+							<th style="width: 60%;" class="silver">Асуултууд</th>
+							<th style="width: 20%" class="silver">Бүлэг</th>
+							<th style="width: 20%;" class="silver">Хариулсан</th>
+							<th style="width: 10%;" class="silver">Хариу</th>
+							<th style="width: 10%;" class="silver">Үзсэн</th>
+						</tr>
+					</thead>
+					<tbody>
+						<% @questions.each do |t| %>
+						<% @count = 0 %>
+						<tr>
+							<td class="silver">
+								<%= link_to t.title, show_question_path(:id => t.id), :data => { :no_turbolink => true } %>
+							</td>
+							<td class="silver"><%= Chapter.find(t.category).name %></td>
+							<td>
+								<% @count = 0 %>
+								<% t.answers.each do |a| %>
+									<% if @count == 4 %>
+										<% break %>
+									<% end %>
+									<% @count += 1 %>
+									<% @stud_pic = Student.find(a.student_id) %>
+									<% if @stud_pic.picture.blank? %>
+    									<% @image = "/assets/default_75.png" %>
+    								<% else %>
+    									<% @image = @stud_pic.picture %>
+    								<% end %>
+
+									<img src="<%= @image %>" width="30" height="30" style="border-radius: 50%;" />
+								<% end %>
+							</td>
+							<td class="silver text-center"><%= t.answers.count %></td>
+							<td class="silver text-center"><%= t.answers.count + rand(0 .. 9) %></td>
+						</tr>
+						<% end %>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<div class="modal" id="ask">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header" style="background: #f2f2f2; color: #555555;">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+          		<h4 class="modal-title">Асуулт</h4>
+			</div>
+			<div class="modal-body" style="padding: 0; margin: 0;">
+				<%= form_for @question, url: {:controller => "question_answer", :action => "create"}, :html=> {:class => "form center-block", multipart: true} do |f| %>
+
+					<% if not @question.errors[:ques].blank? %>
+						<p class="error" id="q_error"></p>
+					<% end %>
+
+					<%= f.hidden_field :student_id, :value => session["user_id"] %>
+
+					<%= f.text_field :title, :id=>"ask_title", :class => "form-control input-lg", :placeholder => "Асуулт", :required => true %>
+
+					<%= f.collection_select :category, Chapter.all, :id, :name, {prompt: "Бүлэг сонгох"}, {required: 'true', class: "form-control", id: "category" } %>
+
+					<%= f.text_area :ques, :class => "form-control input-lg", rows: "4", :placeholder=>"Тодорхой бичих", :id=>"ask_text", :required => true %>
+
+			</div>
+			<div class="modal-footer" style="background: #f2f2f2; margin-top: 0;">
+					<div id="garage-title">
+						<p class="text-left" style="float: left; padding: 0;">
+							<%= f.file_field :picture, :id => "ask_picture", :class => "filestyle" %>
+						</p>
+						<p class="text-right" style="float: right;">
+							<%= f.submit "Асуух", :class=>"btn btn-primary", :html=> {}, :id=>"question", :name =>"questions" %>
+						</p>
+				<% end %>
+					</div>
+					<div style="clear: both;"></div>
+				
+			</div>
+		</div>
+	</div>
+</div>
+
+<script type="text/javascript">
+	$(":file").filestyle({input: false, buttonText: "", buttonName: "btn-inverse", size: "lg", iconName: "glyphicon glyphicon-upload"});
+
+</script>

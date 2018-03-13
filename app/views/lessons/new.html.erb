@@ -1,0 +1,59 @@
+<% provide(:lesson, "active") %>
+
+<div id="wrapper">
+    <%= render 'shared/admin_header'%>
+
+    <!-- Page Heading -->
+	<h2 class="page-header" id="top_header">
+        <i class="fa fa-book"></i> Хичээл нэмэх
+    </h2>
+
+    <div id="page-wrapper" style="margin-top: 1%;">
+        <div class="container-fluid">
+			<div class="row">
+				<div class="col-md-6">
+					<%= form_for @lesson, url: {:controller => "lessons", :action => "create" }, :html => {:class => "form-signin", multipart: true} do |f| %>
+
+						<% if not @lesson.errors[:name].blank? %><p class="error"><%= @lesson.errors[:name].to_sentence + "" %></p><% end %>
+						<%= f.text_field :name, :class=>"form-control", :placeholder=>"Хичээлийн нэр", :id => "input" %>
+						
+						<% if not @lesson.errors[:theory].blank? %><p class="error"><%= @lesson.errors[:theory].to_sentence + "" %></p><% end %>
+						<%= f.text_area :theory, :class=>"form-control", :placeholder=>"Хичээлийн онол", rows: "5", :id => "lesson-info" %>
+
+						<%= f.text_area :theory_example, :class=>"form-control", :placeholder=>"Жишээ код", rows: "5", :id => "lesson-info" %>
+
+						<% if not @lesson.errors[:instruction].blank? %><p class="error"><%= @lesson.errors[:instruction].to_sentence + "" %></p><% end %>
+						<%= f.text_area :instruction, :class=>"form-control", :placeholder=>"Гүйцэтгэх даалгавар", rows: "5", :id => "lesson-info" %>
+
+						<%= f.text_area :answer, :class=>"form-control", :placeholder=>"Хичээлийн хариулт", rows: "5", :id => "lesson-info" %>
+
+						<%= f.text_area :code, :class=>"form-control", :placeholder=>"Хичээлийн өгөгдсөн код", rows: "5", :id => "lesson-info" %>
+
+						<% if not @lesson.errors[:score].blank? %><p class="error"><%= @lesson.errors[:score].to_sentence + "" %></p><% end %>
+						<%= f.text_field :score, :class=>"form-control", :placeholder=>"Хичээлийн оноо", :id => "input" %>
+
+						<%= f.text_field :sub_score, :class=>"form-control", :placeholder=>"Хичээлийн хасах", :id => "input" %>
+
+						<%= f.select :is_exercise, [["Хичээл", 0], ["Дасгал", 1]], :class=>"form-control" %>
+
+						<% if not @lesson.errors[:chapter_id].blank? %><p class="error"><%= @lesson.errors[:chapter_id].to_sentence + "" %></p><% end %>
+						<%= f.label "Хичээлийн бүлэг", :id => "input" %>
+						<% options = options_from_collection_for_select(Chapter.all, 'id', 'name') %>
+						<%= f.select :chapter_id,  options, :class=>"form-control" %>
+
+						<% if not @lesson.errors[:organizer_id].blank? %><p class="error"><%= @lesson.errors[:organizer_id].to_sentence + "" %></p><% end %>
+						<%= f.hidden_field :organizer_id, :value => session["admin_id"] %>
+
+						<%= f.submit "Бүртгэх", :class=>"btn btn-lg btn-primary btn-block btn-signin top_margin" %>
+
+					<% end %>
+				</div>
+				<div class="col-md-6">
+
+					<%= render 'shared/instruction' %>
+					
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

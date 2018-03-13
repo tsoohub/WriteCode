@@ -1,0 +1,38 @@
+<% provide(:chapter, "active") %>
+<div id="wrapper">
+    <%= render 'shared/admin_header'%>
+
+    <h2 class="page-header" id="top_header">
+        <i class="fa fa-folder-o"></i> Бүлэг засах
+    </h2>
+
+    <div id="page-wrapper" style="padding-top: 1%;">
+        <div class="container-fluid">
+			<div class="row">
+
+				<div class="col-md-6">
+					<%= form_for @chapter, url: {:controller => "chapters", :action => "edit" }, :html => {:class => "form-signin", multipart: true} do |f| %>
+					  <% if not @chapter.errors[:name].blank? %><p class="error"><%= @chapter.errors[:name].to_sentence + "" %></p><% end %>
+			          <%= f.text_field :name, :class=>"form-control", :placeholder=>"Бүлгийн нэр", :id => "input" %>
+			          <% if not @chapter.errors[:badge_name].blank? %><p class="error"><%= @chapter.errors[:badge_name].to_sentence + "" %></p><% end %>
+			          <%= f.text_field :badge_name, :class=>"form-control", :placeholder=>"Урамшуулалын нэр", :id => "input" %>
+
+			          <% if not @chapter.errors[:description].blank? %><p class="error"><%= @chapter.errors[:description].to_sentence + "" %></p><% end %>
+			          <%= f.text_area :description, :class=>"form-control", :placeholder=>"Бүлгийн ерөнхий тайлбар", rows: "5", :id => "lesson-info" %>
+
+					  <% if not @chapter.errors[:attachment].blank? %><p class="error"><%= @chapter.errors[:attachment].to_sentence + "" %></p><% end %>
+					  <%= f.label "Зураг оруулах" %>
+
+				  	  <%= f.file_field :attachment, :id => "badge_attachment", :class => "filestyle" %>
+				  	  <%= f.hidden_field :organizer_id, :value => session["admin_id"] %>
+					  <%= f.submit "Шинэчлэх", :class=>"btn btn-lg btn-primary btn-block btn-signin top_margin" %>
+					<% end %>
+				</div>
+				<div class="col-md-6">
+
+					<%= render 'shared/instruction' %>
+				</div>
+			</div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,50 @@
+<% provide(:chapter, "active") %>
+<div id="wrapper">
+    <%= render 'shared/admin_header'%>
+
+    <div id="page-wrapper" style="padding-top: 6%;">
+        <div class="container-fluid">
+
+        	<div class="row">
+        		<div class="col-md-12">
+        			<h4><i class="fa fa-th-large" style="color: #2EC866;"></i> Хичээлийн бүлгүүд</h4>
+        			<% if not flash[:success].blank? %>
+		               <div class="alert alert-success alert-dismissable">
+			            <a class="panel-close close" data-dismiss="alert">×</a> 
+			            <i class="fa fa-check-circle"></i>
+			            <strong><%= flash[:success] %></strong>
+		              </div>
+		            <% end %>
+        			<div class="table-responsive">
+        				<table id="mytable" class="table table-hover table-bordred table-striped">
+        					<thead>
+        						<th>Бүлгийн нэр</th>
+        						<th>Урамшуулал</th>
+        						<th>Оруулсан</th>
+        						<th>Урам/Зураг</th>
+        						<th>Засах</th>
+        						<th>Устгах</th>
+        					</thead>
+        					<tbody id="myTable">
+        						<% @chapters.each do |c| %>
+        							<tr>
+        								<td><%= c.name %></td>
+        								<td><%= c.badge_name %></td>
+        								<td><%= Organizer.find(c.organizer_id).fullname %></td>
+        								<td><img src="<%= c.attachment %>" alt="Зураг оруулаагүй" width="37" height="37" id="orgnizer_img"/></td>
+        								<td><%= link_to "засах", chapterupdate_path(c), :class=>"btn btn-warning btn-sm" %></td>
+        								<td><%= link_to "устгах", c, method: :delete, data: {confirm: "Та итгэлтэй байна уу?"}, :class=>"btn btn-danger btn-sm" %></td>
+        							</tr>
+        						<% end %>
+        					</tbody>
+        				</table>
+        				<div class="clearfix"></div>
+                  		<ul class="pagination pagination-md pager pull-right" id="myPager"></ul>
+        			</div>
+        		</div>
+        	</div>
+        </div>
+    </div>
+</div>
+
+<%= render 'shared/tablepagination'%>

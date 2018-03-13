@@ -1,0 +1,124 @@
+<%= render 'shared/header_lesson' %>
+
+
+<div id="video">
+
+<div class="container">
+    
+    <!-- Page Heading 
+    -->
+    <div class="row">
+
+        <div class="col-md-6 pull-right">
+            <div id="custom-search-input">
+                <div class="input-group col-md-12">
+
+                    <%= form_for @media, url: {:controller => "media", :action => "index"} do |f| %>
+
+                    <%= f.text_field :name, :class => "form-control input-lg", :placeholder => "Видео хайх" %>
+
+                    
+
+                    <% end %>
+                    <span class="input-group-btn">
+                        <button class="btn btn-info btn-lg" type="button">
+                            <i class="glyphicon glyphicon-search"></i>
+                        </button>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- /.row -->
+    
+    <!-- Projects Row -->
+    <div class="row" id="myTable">
+        <% @media_s.each do |m| %>
+            <div class="col-xs-12 col-sm-6 col-md-3 portfolio-item" >
+                <div class="panel panel-success video_panel">
+                  <div class="panel-heading"><span class="glyphicon glyphicon-film" aria-hidden="true"></span> &nbsp;&nbsp;<%= m.name %></div>
+                  <div class="panel-body">
+                    <a href="#" onclick='show_video("<%= m.video_url %>", "<%= m.name %>")'>
+                        <img class="img-responsive" src="<%= m.attachment %>" alt="">
+                        
+                    </a>
+                  </div>
+                </div>
+            </div>
+        <% end %>
+    </div>
+    <!-- /.row -->
+
+
+    <!-- Pagination -->
+    <div class="row">
+        <div class="col-md-12 col-lg-12 text-center" id="video_pagination">
+            <ul class="pagination" id="myPager">
+                
+            </ul>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="modal fade" id="videoModal" role="dialog">
+    <div class="modal-dialog">
+      <!-- Modal content-->
+      <div class="modal-content" >
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" style="color: #000;">&times;</button>
+          <h4 class="modal-title" id="videohead"><i class="fa fa-video-camera"></i> Видео нэр</h4>
+        </div>
+        <div class="modal-body" id="video-body">
+            <video id="myVideo" width="100%" height="500" controls="controls"> 
+                <source src="" id="videoplay">
+            </video>
+        </div>
+      </div>
+    </div>
+</div>
+
+<%= render "/shared/footer"%>
+<%= render 'shared/tablepagination'%>
+
+<script type="text/javascript"> 
+    function show_video(param, title){
+        
+
+        $('#videoModal').modal('toggle');
+
+        $("h4#videohead").html(title);
+
+        var source = document.getElementById("videoplay");
+        source.setAttribute("src", param);
+        
+        play_video();
+    }
+
+    function play_video(){
+        $('#myVideo').videocontrols({ 
+            preview: 
+            { 
+                sprites: ['/assets/big_bunny_108p_preview.png'], 
+                step: 4, 
+                width: 100,
+                height: 80
+            }, 
+            theme: 
+            { 
+                progressbar: 'blue', 
+                range: 'pink', 
+                volume: 'pink' 
+            } 
+
+        });
+    }
+    
+    $('#videoModal').on('hidden.bs.modal', function (e) {
+        $("#video-body").html("<video id='myVideo' width='100%' height='500' controls='controls'><source src='' id='videoplay'></video>");
+
+    });
+
+</script>

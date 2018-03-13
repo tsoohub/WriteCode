@@ -1,0 +1,43 @@
+<% provide(:new, "active") %>
+
+<%= render 'shared/header' %>
+
+<div class="box" id="box">
+	<div class="content registerBox">
+       <div class="form">
+       <h1 class="text-center">Бүртгүүлэх</h1>
+    		<%= form_for @student, url: {:controller => "students", :action => "create" } do |f| %>
+    		  <% if not @student.errors[:fullname].blank? %><p class="error"><%= @student.errors[:fullname].to_sentence + "" %></p><% end %>
+    		  <%= f.text_field :fullname, :class=>"form-control", :placeholder=>"Өөрийн нэр" %>
+    		  <% if not @student.errors[:email].blank? %><p class="error"><%= @student.errors[:email].to_sentence + "" %></p><% end %>
+    		  <%= f.email_field :email, :class=>"form-control", :placeholder=>"Имэйл" %>
+    		  <% if not @student.errors[:username].blank? %><p class="error"><%= @student.errors[:username].to_sentence + "" %></p><% end %>
+    		  <%= f.text_field :username, :class=>"form-control", :placeholder=>"Хэрэглэгчийн нэр" %>
+    		  <% if not @student.errors[:password].blank? %><p class="error"><%= @student.errors[:password].to_sentence + "" %></p><% end %>
+    		  <%= f.password_field :password, :class=>"form-control", :placeholder=>"Нууц үг" %>
+    		  <%= f.submit :class=>"btn btn-default btn-register", :value=>"Бүртгүүлэх" %>
+
+    		<% end %>
+    </div>
+  </div>
+  <div class="division">
+      <div class="line l"></div>
+        <span>Сошиал сүлжээ</span>
+      <div class="line r"></div>
+  </div>
+  <div class="social">
+      <a class="circle github" href="/auth/github">
+          <span class="fa fa-github fa-fw"></span>
+      </a>
+      <a id="google_login" class="circle google" href="/auth/google_oauth2">
+          <span class="fa fa-google-plus fa-fw"></span>
+      </a>
+      <a id="facebook_login" class="circle facebook" href="/auth/facebook">
+          <span class="fa fa-facebook fa-fw"></span>
+      </a>
+  </div>
+</div>
+
+
+
+<%= render "/shared/footer"%>

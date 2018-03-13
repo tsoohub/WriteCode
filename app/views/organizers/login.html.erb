@@ -1,0 +1,17 @@
+<div id="admin_login">
+<div class="container">
+    <div class="card card-container">
+        <img id="profile-img" class="profile-img-card" src="/assets/clogo4_1.png" />
+        <p id="profile-name" class="profile-name-card"></p>
+
+        <%= form_for @organizer, url: {:controller => "organizers", :action => "login" }, :html => {:class => "form-signin"} do |f| %>
+          <% if defined? @login_error %><p class="error"><%= @login_error.to_s + "" %></p><% end %>
+          
+          <%= f.text_field :email, :class=>"form-control", :placeholder=>"Имэйл", :id => "inputEmail", :required => true%>
+		  <%= f.password_field :password, :class=>"form-control", :placeholder=>"Нууц үг", :id => "inputPassword", :required => true%>
+		  <%= f.submit "Нэвтрэх", :class=>"btn btn-lg btn-primary btn-block btn-signin" %>
+		<% end %>
+
+    </div><!-- /card-container -->
+</div><!-- /container -->
+</div>

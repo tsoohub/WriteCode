@@ -1,0 +1,312 @@
+<%= render 'shared/lesson_fancy_header' %>
+
+
+<div id="wrap">
+  <div class="row">
+    <div class="col-sm-3 col-md-3" style="border: none; padding: 5px;">
+
+      <div class="panel-group" id="accordion">
+      
+        <div class="panel panel-default" id="panel1" style="border-bottom: 1px solid #eee;">
+            
+            <div id="first_popover"
+                tabindex="0" 
+                data-html="true" 
+                data-toggle="popover"
+                data-content="<h5>Зааварын хэсэг <button id='closeid' type='button' class='close pull-right' data-dismiss='close' onclick=hide_popover('first_popover')><i class='fa fa-times'></i></button></h5>
+                <p>Хичээл бүр нь тайлбар хэсэгтэй байх бөгөөд түүнийг нь анхааралтай уншаад гүйцэтгэх даалгавар хэсэгт бичсэн даалгваруудыг гүйцэтгэнэ.</p>
+                <a href='#' class='btn btn-danger pull-right' onclick='next_popover(&quot;second_popover&quot;, &quot;first_popover&quot;)'>Дараа</a>" 
+                data-placement="right">
+            </div>
+
+            <div class="panel-heading">
+               <h4 class="panel-title text-center">
+                <a data-toggle="collapse" data-target="#collapseOne" class="text-left" href="#collapseOne" id="popoverfirst">
+                <span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span> Хичээлийн онол
+                </a>  
+              </h4>
+            </div>
+
+            <div id="collapseOne" class="panel-collapse collapse in">
+                <div class="panel-body" style="background-color: #F4F8FC;">
+                  
+                  <h4 class="text-center"><% if not @lesson.name.blank?%><%= @lesson.name %><% end %> <span class="badge"><i class="fa fa-database fa-1x"></i> <%= @lesson.score %> оноо</span> </h4>
+                  
+                  <h5 class="text-center">Хичээлийн онол</h5>
+                  <p><%= @lesson.theory %></p>
+                  
+                  
+                  <% if not @lesson.theory_example.blank? %>
+                    <pre><code><%= @lesson.theory_example %></code></pre>
+                  <% end %>
+
+                  <% if not @lesson.instruction.blank? %>
+                    <h5 class="text-center">Хичээлийн даалгавар</h5>
+                    <p><%= @lesson.instruction %></p>
+                  <% end %>
+                </div>
+            </div>
+        </div>
+
+
+
+        <div class="panel panel-default" id="panel2" style="border-bottom: 1px solid #eee;">
+            <div class="panel-heading">
+               <h4 class="panel-title text-center">
+                <a data-toggle="collapse" data-target="#collapseTwo" href="#collapseTwo" class="collapsed text-left">
+                  <i class="fa fa-question"></i> Гүйцэтгэх даалгавар
+                </a>
+              </h4>
+            </div>
+            <div id="collapseTwo" class="panel-collapse collapse">
+                <div class="panel-body">
+                    <ul class="list-group" id="instruction_style">
+                      <% @instructions.each do |t| %>
+                        <li class="list-group-item" 
+                            id="<%= t.id %>"
+                            tabindex="0" 
+                            data-html="true" 
+                            data-toggle="popover" 
+                            data-trigger="focus" 
+                            title="Заавар буруу" 
+                            data-content="<i class='fa fa-times-circle' style='color: #585858;'></i> <%= t.command %>" 
+                            data-placement="right" >
+
+                            <div class="row">
+                              <div class="col-md-2"><i class="fa fa-circle fa-2x pull-left" 
+                               style="color: #2c2c2c; padding: 5px; border-radius: 0; margin-top: 4px;" 
+                               id="<%= t.id %>id"></i>
+                              </div>
+                              <div class="clearfix visible-xs-block"></div>
+                              <div class="col-md-10"><%= t.command %></div>
+                            </div>
+
+                          <% if not t.example.blank? %>
+                            <pre><code><%= t.example %></code></pre>
+                          <% end %>
+                          <div id="inst_answer" style="display: none;"><%= t.answer %></div>
+                        </li>
+                      <% end %>
+                    </ul>
+
+
+                    <!-- Амжилттай хийсэн бол #
+                        <p><i class="fa fa-check" style="background-color: #13E675; color: #fff; padding: 2px;"></i> </p>
+                    -->
+                </div>
+            </div>
+        </div>
+        <div class="panel panel-default" id="panel3">
+            <div class="panel-heading">
+                 <h4 class="panel-title text-center">
+                  <a data-toggle="collapse" data-target="#collapseThree"
+                     href="#collapseThree" class="collapsed text-left" id="subscore">
+                    <span class="glyphicon glyphicon-ok-circle" aria-hidden="true"></span> Хариулт (-<%= @lesson.sub_score %> оноо)
+                  </a>
+                  <div id="pscore" style="display: none;"><%= @lesson.score %></div>
+                  <div id="sscore" style="display: none;"><%= @lesson.sub_score %></div>
+                </h4>
+            </div>
+            <div id="collapseThree" class="panel-collapse collapse">
+                <div class="panel-body">
+                  <pre><code id="answer"><%= @lesson.answer %></code></pre>
+                </div>
+            </div>
+
+            <div id="codehas" style="display: none;"><% if not @lesson.code.blank? %><%= @lesson.code %><% end %>
+            </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-sm-7 col-md-7" style="border: none; padding: 5px;" id="second_section">
+        <div id="second_popover"
+          tabindex="0" 
+          data-html="true" 
+          data-toggle="popover"
+          data-content="<h5>Код бичих эдитор <button id='closeid' type='button' class='close pull-right' data-dismiss='close' onclick=hide_popover('second_popover')><i class='fa fa-times'></i></button></h5>
+          <p>Өгөгдсөн зааврын дагуу код бичих хэсэг. Програмын кодоо энд бичиж байна.</p>
+          <a href='#' class='btn btn-danger pull-right' onclick='next_popover(&quot;third_popover&quot;, &quot;second_popover&quot;)'>Дараа</a>" 
+          data-placement="left"></div>
+
+      <%= form_for @lesson, remote: true, method: :post, url: {:controller => "lessons", :action => "index"} do |f|%>
+        <div>
+          <%= f.text_area :code, :class => "form-control" ,:id => "cpp-code" %>
+        </div>
+        
+        <div id="maze_runner">
+          <div id="third_popover"
+              tabindex="0" 
+              data-html="true" 
+              data-toggle="popover"
+              data-content="<h5>Кодоо шалгах <button id='closeid' type='button' class='close pull-right' data-dismiss='close' onclick=hide_popover('third_popover')><i class='fa fa-times'></i></button></h5>
+              <p>Кодоо бичиж дуусгаад зөв эсэхийн шалгахын тулд үүнд дарна. </p>
+              <a href='#' class='btn btn-danger pull-right' onclick='next_popover(&quot;four_popover&quot;, &quot;third_popover&quot;)'>Дараа</a>" 
+              data-placement="top">
+          </div>
+        </div>
+        <div id="success_next">
+          <div id="success_popover"
+              tabindex="0" 
+              data-html="true" 
+              data-toggle="popover"
+              data-content="<h5>Амжилттай <button id='closeid' type='button' class='close pull-right' data-dismiss='close' onclick=hide_popover('third_popover')><i class='fa fa-times'></i></button></h5>
+              <p>Дараагийн хичээл үзэх</p>" 
+              data-placement="top">
+          </div>
+        </div>
+
+        <div class="button_bottom" id="bottom_section">
+        <%=  f.hidden_field :id %>
+        <%= f.hidden_field :score  %>
+
+        <%= f.submit "Шалгах", :class => "btn btn-success", :id => "check", :name => "check", data: { 'no-turbolink' => true } %>
+        
+        
+        <%= f.submit "Дараагийн", :class => "btn btn-default", :id => "next", :name => "next", disabled: true, data: { 'no-turbolink' => true } %>
+        </div>
+      <% end %>
+      
+      <script>
+        var value = document.getElementById("codehas").innerText;
+        var cppEditor = CodeMirror.fromTextArea(document.getElementById("cpp-code"), {
+          tabMode: "indent",
+          indentUnit: 4,
+          lineNumbers: true,
+          matchBrackets: true,
+          mode: "text/x-c++src",
+          theme: "dracula",
+          lineWrapping: true,
+          lint: true
+        });
+        
+        cppEditor.getDoc().setValue(value);
+
+        var mac = CodeMirror.keyMap.default == CodeMirror.keyMap.macDefault;
+        CodeMirror.keyMap.default[(mac ? "Cmd" : "Ctrl") + "-Space"] = "autocomplete";
+      </script>
+    </div>
+    
+    <div class="col-sm-2 col-md-2" style="border: none; padding: 5px;" id="right_content">
+
+      <div id="four_popover"
+          tabindex="0" 
+          data-html="true" 
+          data-toggle="popover"
+          data-content="<h5>Програмын үр дүн <button id='closeid' type='button' class='close pull-right' data-dismiss='close' onclick=hide_popover('four_popover')><i class='fa fa-times'></i></button></h5>
+          <p>Өөрийн бичсэн кодын үр дүнгээ харах хэсэг. Програмын үр дүн болон алдааны мэдээлэл харагдах цонх. </p>
+          <a href='#' class='btn btn-success pull-right' onclick='next_popover(&quot;none&quot;, &quot;four_popover&quot;)'>Эхлэх</a>" 
+          data-placement="left">
+      </div>
+
+      <div class="panel panel-default" id="result_panel">
+
+          <div id="socik" class="panel-heading" style="margin: 0; background-color: #55acee;">
+              <i class="fa fa-terminal"></i> Үр дүн
+
+              <a href="#" id="view_popover"
+                data-toggle="popover"
+                title="Title"
+                data-content="And some amazing content. It's very engaging."
+                role="button"
+                trigger="click"><i class="fa fa-commenting" ></i></a>
+          </div>
+
+          <div class="panel-body">
+            <textarea id="result" class="form-control" readonly>
+            </textarea>
+          </div>
+
+          
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+
+
+    <a href="#" class="btn btn-default btn-sm left-right" id="trigger" style="margin-bottom: 0;"><i class="fa fa-tasks fa-1x"></i> <%= @lesson.id %>. <%= @lesson.name %> </a>
+
+    <% @chapter_lessons = Chapter.find(@lesson.chapter_id).lessons %>
+    <% @chapter_name = Chapter.find(@lesson.chapter_id).name %>
+    <div class="sidebar closed">
+      <header>
+        <h3><%= @chapter_name %></h3>
+        <a href="#" id="close"><i class="fa fa-times" style="color: #2c2c2c; margin-top: 20px;"></i></a> 
+      </header>
+
+      <ul>
+        <% @chapter_lessons.each do |ch| %>
+
+          <!-- Хичээлүүдийг хийгдсэн хийгдээгүйгээр нь ялгаж байна -->          
+
+          <% if Completed.where("student_id = ? and lesson_id = ?", session["user_id"], ch.id).blank? %> <!-- Хийгдсэн хичээл -->
+            <li class="disabled"><%= link_to ch.name, show_lesson_path(:id => ch.id), :class=>"pull-left" %> <i class="fa fa-lock pull-right black"></i></li>
+          <% else %>  <!-- Хийгдээгүй хичээлүүд -->
+            <li><%= link_to ch.name, show_lesson_path(:id => ch.id), :class=>"pull-left" %> <i class="fa fa-check-circle-o pull-right"></i></li>
+          <% end %>
+
+
+        <% end %>
+      </ul>
+    </div>
+
+  </div>
+</footer>
+
+
+
+
+<script type="text/javascript">
+  function sidebar(){
+    var trigger = $('#trigger, #close'),
+    menu = $('.sidebar');
+    trigger.on('click',function(){
+     $(this).toggleClass('active');
+     menu.toggleClass('closed');
+     $('#blurrMe').toggleClass('blurred'); // just here
+    });
+  }
+   function deploy(){
+    sidebar();
+   }
+   deploy();
+
+
+   $('#panel3').each(function() {
+      var $this = $(this);
+      $this.popover({
+        trigger: 'hover',
+        placement: 'right',
+        html: true,
+        content: "<%= @lesson.sub_score %> оноо хасагдана"
+
+      });
+    });
+</script>
+
+
+<div class="modal fade" id="myModal" role="dialog">
+  <div class="modal-dialog modal-sm">
+  
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Баяр хүргье</h4>
+      </div>
+      <div class="modal-body">
+        <h4 class="text-center"><%= @current_chapter.badge_name %></h4>
+        <img src= "<%= @current_chapter.attachment %>" class="img-responsive img-rounded text-center" alt="Урамшуулал" />
+        
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Хаах</button>
+      </div>
+    </div>
+    
+  </div>
+</div>

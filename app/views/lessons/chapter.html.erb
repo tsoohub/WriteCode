@@ -1,0 +1,195 @@
+<%= render 'shared/header_lesson' %>
+
+<div id="total_chapter" style="display: none;"><%= @id_count %></div>
+
+<div class="jumbotron text-center" id="chapter_header_backg">
+	<div class="container-fluid">
+		<div class="row" id="chapter_header">
+			<div class="col-md-3">
+				<img src="/assets/ruby.png" class="content_img">
+			</div>
+			<div class="col-md-9" >
+				<h2>Хичээлийн бүлэг</h2>
+
+				<%= link_to "Эхлэх", lessonindex_path, :class => "btn btn-primary text-left" %>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="row" id="sub_menu">
+	<div class="col-md-12">
+		<%= link_to "Тайлбар толь", glossary_path, :class => "btn btn-success pull-right", :id=>"video_butt" %>
+		<%= link_to "Асуулт хариулт", ques_answer_path, :class => "btn btn-success pull-right", :id=>"video_butt", :data => { :no_turbolink => true } %>
+		<%= link_to "Видео үзэх", mediaindex_path, :class => "btn btn-success pull-right", :id=>"video_butt" %>
+
+	</div>
+</div>
+
+
+
+<% @chapter_number = 0 %>
+
+<!-- Хийж дуусгасан бүлгүүд -->
+<% if not @completed.empty? %>
+	<% @completed.each do |t| %>
+		<% @chapter_number += 1 %>
+		<div class="container">
+			<div class="row">
+		        <div class="col-md-8 col-sm-8 section1 well" >
+		        	<%= link_to show_chapter_path(:id => t.id) do %>
+
+			        	<div class="row">
+			        		<div class="col-md-3 col-sm-3 col-xs-3">
+			        			<div
+									id="diagram-id-<%= t.id %>"
+									class="diagram"
+									data-circle-diagram='{
+										"percent": "100%",
+										"size": "95",
+										"borderWidth": "4",
+										"bgFill": "#cacaca",
+										"frFill": "#337ab7",
+										"textSize": "16",
+										"textColor": "#585858"
+										}'>
+								</div>
+			        		</div>
+			        		<div class="col-md-8 col-sm-8 col-xs-8" id="chapter_text">
+			        			<p>Бүлэг <%= @chapter_number %> | <span class="badge"><%= t.lessons.count %> хичээл</span></p>
+			        			<h4><%= t.name %></h4>
+
+			        			<div style="position: absolute; top: 0; right: 0px; font-size: 30px; color: #21ABC7">
+			        				<i class="fa fa-check"></i>
+			        			</div>
+			        		</div>
+			        	</div>
+		        	<% end %>
+		        </div>
+		        <div class="hidden-xs col-sm-4 col-md-4">
+		        	<div class="section1 well text-center" id="chapter_author">
+		        		<div style="position: absolute; top:20px; right: 35px; font-size: 25px; color: #21ABC7;">
+				        	<i class="fa fa-bookmark"></i>
+				        </div>
+
+
+				        <img src="<%= t.attachment %>" width="70" height="65"  alt="Eminem"/>
+
+				        <div class="caption" >
+				          <h4 class="text-center"><%= t.badge_name %></h4>
+				        </div>
+
+		       	 	</div>
+		        </div>
+		    </div>
+		</div>
+	<% end %>
+<% end %>
+
+
+<!-- Хийж буй бүлэг -->
+<% if not @do_chapter.blank? %>
+<div class="container">
+	<div class="row">
+        <div class="col-md-8 col-sm-8 section1 well">
+        	<%= link_to lessonindex_path do %>
+        	<div class="row">
+        		<div class="col-md-3 col-sm-3 col-xs-3">
+        			<div
+						id="diagram-id-<%= @do_chapter.id %>"
+						class="diagram"
+						data-circle-diagram='{
+							<% if @notdo_lessons == @do_chapter.lessons.count %>
+							"percent": "0",
+							<% else %>
+								"percent": "<%= (@do_chapter.lessons.count - @notdo_lessons) * 100 / (@do_chapter.lessons.count) %>%",
+							<% end %>
+							"size": "95",
+							"borderWidth": "4",
+							"bgFill": "#cacaca",
+							"frFill": "#337ab7",
+							"textSize": "16",
+							"textColor": "#585858"
+							}'>
+					</div>
+
+        		</div>
+        		<div class="col-md-8 col-sm-8 col-xs-8" id="chapter_text">
+        			<% @chapter_number += 1 %>
+        			<p>Бүлэг <%= @chapter_number %> | <span class="badge"><%= @do_chapter.lessons.count %> хичээл</span></p>
+        			<h4><%= @do_chapter.name %></h4>
+        			<div style="position: absolute; top: 0; right: 0px; font-size: 30px; color: #21ABC7">
+        				<i class="fa fa-ellipsis-h"></i>
+        			</div>
+        		</div>
+        	</div>
+        	<% end %>
+        </div>
+        <div class="hidden-xs col-sm-4 col-md-4">
+        	<div class="section1 well text-center" id="chapter_author">
+		        <img src="<%= @do_chapter.attachment %>" width="70" height="65"  alt="Eminem" />
+		        <div class="caption" >
+		          <h4 class="text-center"><%= @do_chapter.badge_name %></h4>
+		        </div>
+       	 	</div>
+        </div>
+    </div>
+</div>
+<% end %>
+
+<!-- Хийгээгүй бүлгүүд -->
+<% if not @uncompleted.empty? %>
+	<% @uncompleted.each do |t| %>
+		<% @chapter_number += 1 %>
+		<div class="container" >
+			<div class="row">
+		        <div class="col-md-8 col-sm-8 section1 well disable">
+		        	<a href="#" >
+		        	<div class="row">
+		        		<div class="col-md-3 col-sm-3 col-xs-3">
+		        			<div
+								id="diagram-id-<%= t.id %>"
+								class="diagram"
+								data-circle-diagram='{
+									"percent": "0%",
+									"size": "95",
+									"borderWidth": "4",
+									"bgFill": "#cacaca",
+									"frFill": "#337ab7",
+									"textSize": "16",
+									"textColor": "#585858"
+									}'>
+							</div>
+
+		        		</div>
+		        		<div class="col-md-8 col-sm-8 col-xs-8" id="chapter_text">
+		        			<p>Бүлэг <%= @chapter_number %> | <span class="badge"><%= t.lessons.count %> хичээл</span></p>
+		        			<h4><%= t.name %></h4>
+
+		        			<div style="position: absolute; top: 0; right: 0px; font-size: 30px; color: #585858;">
+		        				<i class="fa fa-lock"></i>
+		        			</div>
+		        		</div>
+		        	</div>
+		        	</a>
+		        </div>
+		        <div class="hidden-xs col-sm-4 col-md-4 disable">
+		        	<div class="section1 well text-center" id="chapter_author">
+				        <img src="<%= t.attachment %>" width="70" height="65"  alt="Eminem" />
+				        <div class="caption" >
+				          <h4 class="text-center"><%= t.badge_name %></h4>
+				        </div>
+		       	 	</div>
+		        </div>
+		    </div>
+		</div>
+	<% end %>
+<% end %>
+
+
+
+
+</div>
+
+<%= render "/shared/footer"%>

@@ -1,0 +1,45 @@
+<% provide(:lesson, "active") %>
+
+<div id="wrapper">
+    <%= render 'shared/admin_header'%>
+
+    <!-- Page Heading -->
+	<h2 class="page-header" id="top_header">
+        <i class="fa fa-book"></i> Заавар нэмэх
+    </h2>
+
+    <div id="page-wrapper" style="margin-top: 1%;">
+        <div class="container-fluid">
+			<div class="row">
+				<div class="col-md-6">
+					<%= form_for @instuction, url: {:controller => "lessons", :action => "create_instruction" }, :html => {:class => "form-signin", multipart: true} do |f| %>
+
+						<% if not @instuction.errors[:command].blank? %><p class="error"><%= @instuction.errors[:command].to_sentence + "" %></p><% end %>
+						<%= f.text_area :command, :class=>"form-control", :placeholder=>"Хичээлийн заавар", :id => "lesson-info" %>
+
+						<% if not @instuction.errors[:example].blank? %><p class="error"><%= @instuction.errors[:example].to_sentence + "" %></p><% end %>
+						<%= f.text_area :example, :class=>"form-control", :placeholder=>"Жишээ ", rows: "5", :id => "lesson-info" %>
+
+						<% if not @instuction.errors[:answer].blank? %><p class="error"><%= @instuction.errors[:answer].to_sentence + "" %></p><% end %>
+						<%= f.text_area :answer, :class=>"form-control", :placeholder=>"Зааварын хариу", rows: "5", :id => "lesson-info" %>
+
+						<% if not @instuction.errors[:lesson_id].blank? %><p class="error"><%= @instuction.errors[:lesson_id].to_sentence + "" %></p><% end %>
+						<%= f.label "Хичээл", :id => "input" %>
+						<% options = options_from_collection_for_select(Lesson.all,'id', 'name') %>
+						<%= f.select :lesson_id,  options, {}, :class=>"form-control" %>
+
+						<%= f.label "Төрөл", :id => "input" %>
+						<%= f.select :statement, [["Хувьсагчийн зарлагаа", 1], ["Утга олгох", 2], ["If нөхцөл шалгах", 3], ["switch нөхцөл шалгах", 4], ["For давталт", 5], ["while давталт", 6], ["do while давталт", 7], ["Функц", 8], ["Класс", 9], ["Гаралт шалгах", 10], ["Хоосон", 11]], {}, :class=>"form-control" %>
+
+						<%= f.submit "Бүртгэх", :class=>"btn btn-lg btn-primary btn-block btn-signin top_margin" %>
+
+					<% end %>
+				</div>
+				<div class="col-md-6">
+
+					<%= render 'shared/instruction' %>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

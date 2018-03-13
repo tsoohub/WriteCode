@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Onlinecode</title>
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+    <%= stylesheet_link_tag    'dracula', media: 'all', 'data-turbolinks-track' => true %>
+
+    <%= stylesheet_link_tag    'jquery_videocontrols', media: 'all', 'data-turbolinks-track' => true %>
+    <%= stylesheet_link_tag 'application', 'https://fonts.googleapis.com/css?family=Yantramanav:100' %>
+    <%= stylesheet_link_tag 'application', 'https://fonts.googleapis.com/css?family=Arimo' %>
+    <%= stylesheet_link_tag 'application', 'https://fonts.googleapis.com/css?family=Cabin' %>
+    <%= stylesheet_link_tag 'application', 'https://fonts.googleapis.com/css?family=Amaranth:700' %>
+    <%= stylesheet_link_tag 'application', 'https://fonts.googleapis.com/css?family=Open+Sans:700&subset=latin,cyrillic' %>
+    <%= stylesheet_link_tag 'application', 'https://fonts.googleapis.com/css?family=Roboto:500' %>
+    <%= stylesheet_link_tag 'application', 'https://fonts.googleapis.com/css?family=Karla' %>
+    <%= stylesheet_link_tag 'application', 'https://fonts.googleapis.com/css?family=Oxygen' %>
+
+    <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+    <%= javascript_include_tag "codemirror", "data-turbolinks-track" => true  %>
+    <%= javascript_include_tag "clike", "data-turbolinks-track" => true  %>
+    <%= javascript_include_tag "matchbrackets", "data-turbolinks-track" => true  %>
+    <%= javascript_include_tag "show-hint", "data-turbolinks-track" => true  %>
+    <%= javascript_include_tag "bootstrap-modal-popover", "data-turbolinks-track" => true  %>
+    <%= javascript_include_tag "jquery_videocontrols", "data-turbolinks-track" => true  %>
+    <%= javascript_include_tag "bootstrap-filestyle.min", "data-turbolinks-track" => true  %>
+    <%= javascript_include_tag "circle-progress", "data-turbolinks-track" => true  %>
+
+    <%= csrf_meta_tags %>
+
+    <link rel="shortcut icon" href="/assets/bcircle.png"/>
+
+  </head>
+  <body>
+    <%= yield %>
+    
+  </body>
+</html>

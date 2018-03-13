@@ -1,0 +1,592 @@
+// Place all the styles related to the webserver controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+// Place all the styles related to the Webserver controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+
+.f_hd{
+    color: #D6E4E1; 
+    margin-top: 10px; 
+    margin-bottom: 10px;
+}
+
+ul{
+    list-style: none;
+    margin: 0;
+    padding-left: 15px;
+}
+
+ul > li > a{
+    color: #D6E4E1;
+    margin-bottom: 3px;
+}
+
+ul > li > a:hover,
+ul > li > a:focus{
+    color: #3CB99C;
+    text-decoration: none;
+}
+
+
+.foot-img{
+    width: 80px;
+    height: 80px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    margin: 0;
+
+}
+
+.login .modal-dialog{
+    width: 350px;
+}
+.login .modal-footer{
+    border-top: 0;
+    margin-top: 0px;
+    padding: 10px 20px 20px;
+}
+.login .modal-header {
+    border: 0 none;
+    padding: 15px 15px 15px;
+/*     padding: 11px 15px; */
+}
+.login .modal-body{
+/*     background-color: #eeeeee; */
+}
+.division {
+    float: none;
+    margin: 0 auto 18px;
+    overflow: hidden;
+    position: relative;
+    text-align: center;
+    width: 100%;
+    margin-top: 20px;
+}
+.division .line {
+    border-top: 1px solid #DFDFDF;
+    position: absolute;
+    top: 10px;
+    width: 34%;
+}
+.division .line.l {
+    left: 0;
+}
+.division .line.r {
+    right: 0;
+}
+.division span {
+    color: #424242;
+    font-size: 13px;
+    font-family: 'Comfortaa', cursive;
+}
+.social {
+    float: none;
+    margin: 0 auto 30px;
+    text-align: center;
+}
+
+.social .circle{
+    background-color: #EEEEEE;
+    color: #FFFFFF;
+    border-radius: 100px;
+    display: inline-block;
+    margin: 0 17px;
+    padding: 15px;
+}
+.social .circle .fa{
+    font-size: 16px;
+}
+.social .facebook{
+    background-color: #455CA8;
+    color: #FFFFFF;
+}
+.social .google{
+    background-color: #F74933;
+}
+.social .github{
+    background-color: #403A3A;
+}
+.facebook:hover{
+    background-color: #6E83CD;
+}
+.google:hover{
+    background-color: #FF7566;
+}
+.github:hover{
+    background-color: #4D4D4d;;
+}
+.forgot {
+    color: #797979;
+    margin-left: 0;
+    overflow: hidden;
+    text-align: center;
+    width: 100%;
+}
+.btn-login, .registerBox .btn-register{
+    background-color: #27A9E1;
+    border-color: #00BBFF;
+    border-width: 0;
+    color: #FFFFFF;
+    display: block;
+    margin: 0 auto;
+    padding: 15px 50px;
+    text-transform: uppercase;
+    width: 100%;
+}
+.btn-login:hover, .registerBox .btn-register:hover{
+    background-color: #27A9E1;
+    opacity: 0.8px;
+    color: #FFFFFF;
+}
+#new_student > .form-control,
+{
+    border-radius: 3px;
+    background-color: rgba(0, 0, 0, 0.09);
+    box-shadow: 0 1px 0px 0px rgba(0, 0, 0, 0.09) inset;
+    color: #333333;
+}
+#new_student > .form-control:hover{
+    background-color: rgba(0,0,0,.16);
+}
+#new_student > .form-control:focus{
+    box-shadow: 0 1px 0 0 rgba(0, 0, 0, 0.04) inset;
+    background-color: rgba(0,0,0,0.23);
+    color: #333333;
+}
+#box.box .form input[type="text"], .box .form input[type="email"],
+#box.box .form input[type="password"], .login .box .form input[type="password"]{
+    border-radius: 3px;
+    border: none;
+    color: #333333;
+    font-size: 16px;
+    height: 46px;
+    margin-bottom: 5px;
+    padding: 13px 12px;
+    width: 100%;
+    background-color: rgba(0,0,0,0.23);
+}
+#box.box .form input[type="submit"]{
+    border-radius: 3px;
+    color: #fff;
+    font-size: 16px;
+    height: 46px;
+    margin-bottom: 5px;
+    padding: 13px 12px;
+    font-weight: normal;
+    width: 100%;
+    background-color: 2ec866;
+}
+
+
+@media (max-width:400px){
+    .login .modal-dialog{
+        width: 100%;
+    }
+}
+
+
+
+
+
+#box{
+    width: 30%; margin: 0 auto;
+    margin-top: 20px;
+}
+
+p.error{
+    font-family: 'Comfortaa', cursive;
+    width: 100%;
+    color: #D8000C;
+}
+
+@media all and (max-width:818px){
+    #box{
+        width: 70%;
+        margin: 5px auto;
+    }
+}
+
+@media all and (max-width:766px){
+    #box{
+        width: 70%;
+        margin: 5px auto;
+    }
+}
+
+@media all and (max-width:564px){
+    #box{
+        width: 100%;
+        margin: 0px;
+    }
+}
+
+
+.absolute_bottom{
+    bottom: 0;
+    height: 120px;
+    left: 0;
+    position: absolute;
+    width: 100%;
+    margin-bottom: 0;
+}
+
+.page-header > h2{
+    font-weight: bold;
+    
+}
+
+#main{
+    margin-top: 20px;
+}
+
+
+#leftPanel{
+    background-color:#282a36;
+    color:#fff;
+    border-color: #282a36;
+    text-align: center;
+}
+
+#rightPanel{
+    min-height:415px;
+}
+
+#leftPanel > .row > .col-md-12 > div > h4{
+    margin-top: 10px;
+}
+
+#rightPanel > .row > .col-md-12 > form > h2 > small{
+    color: #282A36;
+}
+
+/* Credit to bootsnipp.com for the css for the color graph */
+.colorgraph {
+  height: 5px;
+  border-top: 0;
+  background: #282A36;
+  border-radius: 5px;
+  
+}
+
+.btn-file {
+  position: relative;
+  overflow: hidden;
+}
+.btn-file input[type=file] {
+  position: absolute;
+  top: 0;
+  right: 0;
+  min-width: 100%;
+  min-height: 100%;
+  font-size: 100px;
+  text-align: right;
+  filter: alpha(opacity=0);
+  opacity: 0;
+  background: red;
+  cursor: inherit;
+  display: block;
+}
+
+
+
+
+
+
+.box {
+    border-radius: 3px;
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+    padding: 10px 25px;
+    text-align: right;
+    display: block;
+    margin-top: 60px;
+}
+.box-icon {
+    background-color: #57a544;
+    border-radius: 50%;
+    display: table;
+    height: 100px;
+    margin: 0 auto;
+    width: 100px;
+    margin-top: -61px;
+}
+.box-icon img {
+    color: #fff;
+    display: table-cell;
+    text-align: center;
+    vertical-align: middle;
+    border-radius: 50%;
+}
+.info h4 {
+    margin-top: 10px;
+    font-size: 26px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+.info > p {
+    color: #717171;
+    font-size: 16px;
+    padding-top: 5px;
+    text-align: justify;
+}
+
+.info > h5{
+    color: #717171;
+    font-size: 21px;
+    text-align: left;
+}
+
+.info > a {
+    background-color: #03a9f4;
+    border-radius: 2px;
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+    color: #fff;
+    transition: all 0.5s ease 0s;
+}
+.info > a:hover {
+    background-color: #0288d1;
+    box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.16), 0 2px 5px 0 rgba(0, 0, 0, 0.12);
+    color: #fff;
+    transition: all 0.5s ease 0s;
+}
+
+.btn-file > #student_picture{
+
+    background-color: #282a36;
+}
+
+.table-user-information > tbody > tr{
+    font-weight: bold;
+}
+
+ul#list_for_social{
+
+    margin-top: 15px;
+    padding: 0;
+}
+
+ul#list_for_social > li{
+    display: inline;
+}
+ul#list_for_social > li > a > i{
+    margin-left: 0;
+    margin-right: 10px;
+}
+ul#list_for_social > li > a > .circle{
+    border-radius: 50%;
+}
+ul#list_for_social > li > a > .fa-facebook{
+    background: #3B5998;
+    color: #FFFFFF;
+    padding: 5px;
+}
+ul#list_for_social > li > a > .fa-google-plus{
+  color: #FFFFFF;
+  background: #dd4b39;
+  padding: 5px;
+}
+ul#list_for_social > li > a > .fa-github{
+  color: #FFFFFF;
+  background: #333;
+  padding: 5px;
+
+}
+
+.alignleft {
+    float: left;
+}
+.alignright {
+    float: right;
+}
+#today_score{
+    font-weight: bold;
+    background-color: #E9FDC2;
+}
+#big{
+    font-size: 24px;
+
+}
+#textbox_f{
+    margin-top: 30px;
+}
+#top_section{
+    width: 100%; background-color: #F5F5F5; 
+    margin: 0;
+    padding-top: 35px;
+    padding-bottom: 25px;
+    border-bottom: 1px solid #D1D1D1;
+}
+
+ul#badge_s{
+    margin: 0;
+    padding: 0;
+}
+ul#badge_s > li{
+    display: inline;
+    margin-left: 0;
+}
+
+ul#lesson_v{
+    padding: 0;
+}
+
+ul#lesson_v > li{
+    margin-bottom: 5px;
+}
+
+ul#lesson_v > li > a{
+    color: #585858;
+    font-family: 'Comfortaa', cursive;
+}
+ul#lesson_v > li > a:hover{
+    color: #2c2c2c;
+}
+#lesson_h{
+    margin-top: 30px;
+    font-weight: bold;
+
+}
+#less_img{
+    margin-right: 10px;
+}
+#caption_h{
+    border-bottom: 1px solid #D1D1D1;
+    margin-top: 8px;
+    margin-bottom: 30px;
+}
+
+#textbox{
+    cursor: pointer;
+
+}
+#textbox > h4{
+    color: #585858;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    margin-bottom: 5px;
+}
+
+.glyphicon-star{
+    color: #F4D30A;
+    margin-left: 15px;
+}
+#top_size_8{
+    margin-top: 20px;
+}
+#pro_thumb{
+    padding: 20px;
+}
+#pro_thumb > p.top_margin{
+    margin-top: 30px;
+    font-weight: bold;
+}
+
+#updateme{
+    
+    font-weight: normal;
+    border-radius: 0;
+    border-color: #282A36;
+    background-color: #282A36;
+}
+#badge_header{
+    width: 100%;
+    margin-top: 44px;
+    text-align: center;
+    margin-bottom: 40px;
+    font-family: 'Open Sans', sans-serif;
+}
+#badge_header > img{
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+}
+.center{
+    text-align: center;
+}
+#thumbnail_padding{
+    padding: 48px 16px;
+    border-radius: 0;
+}
+#thumbnail_padding > .caption > h3{
+    margin-top: 16px;
+    margin-bottom: 75px;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 18px;
+    font-weight: normal;
+    line-height: 24px;
+    color: #5B5B5B;
+}
+
+#thumbnail_padding > .caption > small{
+    font-family: 'Open Sans', sans-serif;   
+    font-weight: 100%;
+    color: #5B5B5B;
+}
+
+#badge_col{
+    padding-left: 135px;
+    padding-right: 135px;
+}
+#badge_col > .col-md-4{
+    padding: 10px;
+    width: 33%;
+    height: 342px;
+    margin-bottom: 60px;
+}
+
+
+@media all and (max-width:1199px){
+    #badge_col > .col-md-4{
+        width: 50%;
+    }
+}
+@media all and (max-width:991px){
+
+    #badge_col > .col-md-4{
+        width: 100%;
+    }
+    
+}
+
+@media all and (max-width:650px){
+    #badge_col{
+        padding-left: 105px;
+        padding-right: 105px;
+    }
+    #badge_col > .col-md-4{
+        width: 100%;
+    }
+    
+}
+@media all and (max-width:560px){
+    #badge_col{
+        padding-left: 75px;
+        padding-right: 75px;
+    }
+    #badge_col > .col-md-4{
+        width: 100%;
+    }
+    
+}
+
+@media all and (max-width:500px){
+    #badge_col{
+        padding-left: 20x;
+        padding-right: 20px;
+    }
+    #badge_col > .col-md-4{
+        width: 100%;
+    }
+    
+}
+@media all and (max-width:399px){
+    #badge_col{
+        padding-left: 20px;
+        padding-right: 0;
+    }
+    #badge_col > .col-md-4{
+        width: 100%;
+    }
+    
+}

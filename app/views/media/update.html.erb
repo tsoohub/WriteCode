@@ -1,0 +1,38 @@
+<% provide(:media, "active") %>
+<div id="wrapper">
+    <%= render 'shared/admin_header'%>
+
+    <h2 class="page-header" id="top_header">
+        <i class="fa fa-film"></i> Видео засах
+    </h2>
+
+    <div id="page-wrapper" style="margin-top: 1%;">
+        <div class="container-fluid">
+			<div class="row">
+				<div class="col-md-6" >
+					<%= form_for @media, url: {:controller => "media", :action => "edit" }, :html => {:class => "form-signin", multipart: true} do |f| %>
+
+						<% if not @media.errors[:name].blank? %><p class="error"><%= @media.errors[:name].to_sentence + "" %></p>
+						<% end %>
+						<%= f.text_field :name, :class=>"form-control", :placeholder=>"Видео-ийн нэр", :id => "input" %>
+						<% if not @media.errors[:attachment].blank? %><p class="error"><%= @media.errors[:attachment].to_sentence + "" %></p>
+						<% end %>
+						<%= f.label "Зураг оруулах" %>
+				  	  	<%= f.file_field :attachment, :id => "badge_attachment", :class => "filestyle" %>
+				  	  	<% if not @media.errors[:video].blank? %><p class="error"><%= @media.errors[:video].to_sentence + "" %></p>
+						<% end %>
+				  	  	<%= f.label "Видео оруулах" %>
+				  	  	<%= f.file_field :video, :id => "video_attachment", :class => "filestyle" %>
+				  	  	<%= f.hidden_field :organizer_id, :value => session["admin_id"] %>
+				  	  	<%= f.submit "Бүртгэх", :class=>"btn btn-lg btn-primary btn-block btn-signin top_margin" %>
+
+					<% end %>
+				</div>
+				<div class="col-md-6">
+
+					<%= render 'shared/instruction' %>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

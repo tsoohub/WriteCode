@@ -1,0 +1,48 @@
+<% provide(:glossary, "active") %>
+
+<div id="wrapper">
+    <%= render 'shared/admin_header'%>
+
+    <h2 class="page-header" id="top_header">
+        <i class="fa fa-book"></i> Тайлбар толь засах
+    </h2>
+
+    <div id="page-wrapper" style="margin-top: 1%;">
+        <div class="container-fluid">
+			<div class="row">
+				<div class="col-md-6">
+					<%= form_for @glossary, url: {:controller => "glossaries", :action => "edit" }, :html => {:class => "form-signin", multipart: true} do |f| %>
+
+						<% if not @glossary.errors[:name].blank? %>
+							<p class="error"><%= @glossary.errors[:name].to_sentence + "" %></p>
+						<% end %>
+						<%= f.text_field :name, :class=>"form-control", :placeholder=>"Тайлбарийн нэр", :id => "input" %>
+
+						<% if not @glossary.errors[:description].blank? %>
+							<p class="error"><%= @glossary.errors[:description].to_sentence + "" %></p>
+						<% end %>
+						<%= f.text_area :description, :class=>"form-control", :placeholder=>"Онолын тодорхойлолт", rows: "5", :id => "lesson-info" %>
+
+						<% if not @glossary.errors[:syntax].blank? %>
+							<p class="error"><%= @glossary.errors[:syntax].to_sentence + "" %></p>
+						<% end %>
+						<%= f.text_area :syntax, :class=>"form-control", :placeholder=>"Синтакс", rows: "5", :id => "lesson-info" %>
+
+						<% if not @glossary.errors[:example].blank? %>
+							<p class="error"><%= @glossary.errors[:example].to_sentence + "" %></p>
+						<% end %>
+						<%= f.text_area :example, :class=>"form-control", :placeholder=>"Онолын жишээ код", rows: "5", :id => "lesson-info" %>
+
+						<%= f.hidden_field :organizer_id, :value => session["admin_id"] %>
+
+						<%= f.submit "Шинэчлэх", :class=>"btn btn-lg btn-primary btn-block btn-signin top_margin" %>
+						
+					<% end %>	
+				</div>
+				<div class="col-md-6">
+					<%= render 'shared/instruction' %>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

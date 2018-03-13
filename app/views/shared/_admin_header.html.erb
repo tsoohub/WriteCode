@@ -1,0 +1,86 @@
+<!-- Navigation -->
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
+        <%= link_to "Админ", adminindex_path, :class => "navbar-brand" %>
+        
+    </div>
+    <!-- Top Menu Items -->
+    <ul class="nav navbar-right top-nav">
+        <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> Би <b class="caret"></b></a>
+            <ul class="dropdown-menu">
+                <li>
+                    <%= link_to profile_path do %>
+                        <i class="fa fa-fw fa-user"></i> Профайл харах
+                    <% end %>
+                </li>
+                <li>
+                    <%= link_to organizerupdate_path(session["admin_id"]) do %>
+                        <i class="fa fa-fw fa-envelope"></i> Профайл засах
+                    <% end %>
+                </li>
+                <li class="divider"></li>
+                <li>
+                    <%= link_to admin_logout_path do %>
+                        <i class="fa fa-fw fa-power-off"></i> Гарах
+                    <% end %>
+                </li>
+            </ul>
+        </li>
+    </ul>
+    <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
+    <div class="collapse navbar-collapse navbar-ex1-collapse">
+        <ul class="nav navbar-nav side-nav">
+            <li class="<%= yield(:admin) %>">
+                <%= link_to adminindex_path do %>
+                    <i class="fa fa-fw fa-dashboard"></i> Үндсэн
+                <% end %>
+            </li>
+            <li class="<%= yield(:lesson) %>">
+                <a href="javascript:;" data-toggle="collapse" data-target="#lesson_submenu"><i class="fa fa-fw fa-bar-chart-o"></i> Хичээл <i class="fa fa-fw fa-caret-down"></i></a>
+                <ul id="lesson_submenu" class="collapse">
+                    <li><%= link_to "Хичээл нэмэх", newlesson_path %></li>
+                    <li><%= link_to "Хичээл бусад", lessonshow_path %></li>
+                    <li><%= link_to "Заавар нэмэх", new_instruction_path %></li>
+                </ul>
+            </li>
+            <li class="<%= yield(:chapter) %>">
+                <a href="javascript:;" data-toggle="collapse" data-target="#chapter_submenu"><i class="fa fa-fw fa-table"></i> Бүлэг <i class="fa fa-fw fa-caret-down"></i></a>
+                <ul id="chapter_submenu" class="collapse">
+                    <li><%= link_to "Бүлэг үүсгэх", chapternew_path %></li>
+                    <li><%= link_to "Бусад", chaptershow_path %></li>
+                </ul>
+            </li>
+            <li class="<%= yield(:organizer) %>">
+                <a href="javascript:;" data-toggle="collapse" data-target="#organizer_submenu"><i class="fa fa-fw fa-edit"></i> Зохион байгуулагч <i class="fa fa-fw fa-caret-down"></i></a>
+                <ul id="organizer_submenu" class="collapse">
+                    <li><%= link_to "Бүртгэх", adminnew_path %></li>
+                    
+                    <li><%= link_to "Бусад", admin_path %></li>
+                </ul>
+            </li>
+            <li class="<%= yield(:media) %>">
+                <a href="javascript:;" data-toggle="collapse" data-target="#videouploads"><i class="fa fa-fw fa-wrench"></i> Видео <i class="fa fa-fw fa-caret-down"></i></a>
+                <ul id="videouploads" class="collapse">
+                    <li><%= link_to "Видео нэмэх", medianew_path %></li>
+                    <li><%= link_to "Видео бусад", mediashow_path %></li>
+                </ul>
+            </li>
+            <li class="<%= yield(:glossary) %>" >
+                <a href="javascript:;" data-toggle="collapse" data-target="#glossaryloads"><i class="fa fa-fw fa-desktop"></i> Тайлбар толь <i class="fa fa-fw fa-caret-down"></i></a>
+                <ul id="glossaryloads" class="collapse">
+                    <li><%= link_to "Тайлбар толь нэмэх", glossarynew_path %></li>
+                    <li><%= link_to "Тайлбар толь бусад", glossaryshow_path %></li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+    <!-- /.navbar-collapse -->
+</nav>

@@ -1,0 +1,122 @@
+<%= render 'shared/header_lesson' %>
+
+<div style="width: 100%; height: 100vh; background-color: #B7B7B7">
+
+<div class="container">
+  <div class="row" id="main">
+
+      <div class="col-md-4 well" id="leftPanel">
+          <div class="row">
+              <div class="col-md-12">
+                <div>
+                  <img src="<%= @image %>" alt="Texto Alternativo" class="img-circle img-thumbnail img-responsive" width="160" height="160">
+                  <h4 ><%= @name %></h4>
+                  <p style="color: #e3e3e3;"><%= @about %></p>
+                  
+                </div>
+            </div>
+          </div>
+      </div>
+
+      <div class="col-md-8 well" id="rightPanel">
+        <div class="row">
+          <div class="col-md-12">
+
+            <%= form_for @student, url: {:controller => "students", :action => "update" }, :html => {multipart: true} do |f| %>
+
+
+                <h2><small>Профайл шинэчлэх</small></h2>
+                <hr class="colorgraph">
+                <div class="row">
+                  <div class="col-xs-12 col-sm-6 col-md-6">
+                    <div class="form-group">
+                      <% if not @student.errors[:username].blank? %>
+                        <p class="error"><%= @student.errors[:username].to_sentence + "" %></p>
+                      <% end %>
+                      <%= f.text_field :username, :class => "form-control input-md", :placeholder=>"Хэрэглэгчийн нэр", :id => "username", :tabindex => "1" %>
+                    </div>
+                  </div>
+                  <div class="col-xs-12 col-sm-6 col-md-6">
+                    <div class="form-group">
+                      <% if not @student.errors[:email].blank? %>
+                        <p class="error"><%= @student.errors[:email].to_sentence + "" %></p>
+                      <% end %>
+                      <%= f.text_field :email, :class => "form-control input-md", :placeholder=>"Имэйл", :id => "email", :tabindex => "2" %>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-xs-12 col-sm-12 col-md-12">
+                    <div class="form-group">
+                        <% if not @student.errors[:fullname].blank? %>
+                          <p class="error"><%= @student.errors[:fullname].to_sentence + "" %></p>
+                        <% end %>
+                        <%= f.text_field :fullname, :class => "form-control input-md", :placeholder=>"Овог нэр", :id => "fullname", :tabindex => "4" %>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-xs-12 col-sm-6 col-md-6">
+                    <div class="form-group">
+                      <% if not @student.errors[:password].blank? %>
+                        <p class="error"><%= @student.errors[:password].to_sentence + "" %></p>
+                      <% end %>
+                      <%= f.text_field :password, :class => "form-control input-md", :placeholder=>"Нууц үг", :id => "password", :tabindex => "5" %>
+                    </div>
+                  </div>
+                  <div class="col-xs-12 col-sm-6 col-md-6">
+                    <div class="form-group">
+                      <% if not @student.errors[:password].blank? %>
+                        <p class="error"><%= @student.errors[:password].to_sentence + "" %></p>
+                      <% end %>
+                      <%= f.text_field :password, :class => "form-control input-md", :placeholder=>"Нууц үг", :id => "password", :tabindex => "6" %>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-xs-12 col-sm-12 col-md-12">
+                    <div class="form-group">
+                      <%= f.text_area :about, :class=>"form-control input-md", :placeholder=>"Миний тухай", rows: "3", :id => "about_me" %>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-xs-12 col-sm-4 col-md-4">
+                    <div class="form-group">
+
+                      <%= f.select :location, [["Монгол", "Монгол"], ["Африк", "Африк",], ["Америк", "Америк"], ["Орос", "Орос"], ["Хятад", "Хятад"], ["Англи", "Англи"], ["Канад", "Канад"] ], {}, :class => "form-control input-md" %>
+
+                    </div>
+                  </div>
+                  <div class="col-xs-12 col-sm-4 col-md-4">
+                    <div class="form-group">
+                      <span class="input-group-btn" id="picture_button">
+                        <span class="btn btn-default btn-file input-sm">
+                            Зураг нэмэх <%= f.file_field :picture %>
+                        </span>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+
+                <hr class="colorgraph">
+                <div class="row">
+                  <div class="col-xs-12 col-md-6"></div>
+                  <div class="col-xs-12 col-md-3 col-md-offset-3">
+                    <%= f.submit "Шинэчлэх", :class=>"btn btn-success btn-block btn-md", :id=>"updateme"%>
+                  </div>
+                </div>
+            <% end %>
+
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+</div>
