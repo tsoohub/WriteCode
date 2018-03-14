@@ -1,7 +1,7 @@
 class LessonsController < ApplicationController
   respond_to :html, :js
   before_action :new_lesson
-  
+
   require 'Interpreters'
 
   def included_in? array
@@ -29,7 +29,7 @@ class LessonsController < ApplicationController
       # -------------------- Дараагиийн товч дарагдсан үед тухайн хийсэн хичээлийг нь хадгална ----------------------
       if not Completed.exists?(:student_id => session["user_id"], :lesson_id => session["lesson_id"])
         Completed.create(take_score: params[:lesson][:score], isview: 1, student_id: session["user_id"], lesson_id: session["lesson_id"]) # Яахав дээ хийсэн хичээлийн  хадгалаж байна
-      
+
         # -----------Суралцагчийн үзсэн хичээлүүд ----------------------
         @viewed = Completed.where("student_id = ?", session["user_id"]) # Суралцагчийн үзсэн бүх хичээл
         @viewed.each do |less| # Одоогийн бүлгээс үзсэн хичээл
@@ -65,19 +65,19 @@ class LessonsController < ApplicationController
       end
 
     elsif params[:check]
-      
+
       @next = false
       if params[:lesson][:code].blank?  # Хоосол бол програм ажиллаж болохгүй
-        
+
       else
         @code = params[:lesson][:code] # Суралцагчийн бичсэн кодыг авна
         @id = params[:lesson][:id] # Хичээлийн id
 
         # -----------------------Зөв код------------------------------
-        File.open("C:/Users/Tsoo/Documents/google.txt", "w+") do |f|
+        File.open("C:/Users/Tsoodol/Documents/google.txt", "w+") do |f|
           f.write(@code)
         end
-        @student_answer = Interpreters.new("C:/Users/Tsoo/Documents/google.txt")
+        @student_answer = Interpreters.new("C:/Users/Tsoodol/Documents/google.txt")
         @student_answer.program_runner()
         @student_declar = @student_answer.parser.declarations
         @student_condition = @student_answer.conditions
@@ -95,18 +95,18 @@ class LessonsController < ApplicationController
         @filled = Array.new # Зөв хийгдсэн зааврыг хадгална
 
         @instructions.each do |i| # Даалгавар бүрийг давтана
-          File.open("C:/Users/Tsoo/Documents/answer.txt", "w+") do |f|
+          File.open("C:/Users/Tsoodol/Documents/answer.txt", "w+") do |f|
             f.write(i.answer)
           end
-          @command = Interpreters.new("C:/Users/Tsoo/Documents/answer.txt")
+          @command = Interpreters.new("C:/Users/Tsoodol/Documents/answer.txt")
           @command.program_runner()
           @command_condition = @command.conditions
           @command_declar = @command.parser.declarations
           @command_print = @command.print
-          
+
 
           if i.statement == 1 # Хувьсагчийн зарлагаа
-            check_declaration 
+            check_declaration
           elsif i.statement == 2 # Утга олгох
             check_assignment
           elsif i.statement == 3 # if нөхцөл шалгах
@@ -122,7 +122,7 @@ class LessonsController < ApplicationController
           elsif i.statement == 8 # метод функц
 
           elsif i.statement == 9 # class класс
-            
+
           elsif i.statement == 10 # Console хэвлэх үр дүн шалгах
             check_output
           elsif i.statement == 11 # Хоосон шалгагахгүй
@@ -245,14 +245,14 @@ class LessonsController < ApplicationController
   def show_chapter_lessons
     student_info
     @chapter = Chapter.find(session["chapter_id"])
-    
+
   end
 
 
   def new_instruction
     @instuction = Instruction.new
   end
-  
+
   def create_instruction
     @instuction = Instruction.new(instruction_params)
     respond_to do |format|
@@ -305,13 +305,13 @@ class LessonsController < ApplicationController
 
     @chapter_lessons_count = 0
     @student_lesson_count = Completed.where("student_id = ?",  session["user_id"]).count # Суралцагчийн үзсэн хичээлийн тоо
-    
+
     if @student_lesson_count == 0 # Анхны хичээл
       @first_chapter_id = Chapter.first.id
       @first_lesson = Lesson.where("chapter_id = ?", @first_chapter_id).order("id").first.id
       Completed.new(:take_score => 0 , :isview => 1, :student_id => session["user_id"], :lesson_id => @first_lesson).save
     end
-    
+
     @uncomp = false
     @completed = Array.new # СУралцагчийн үзсэн бүлгийг хадгалах массив
     @uncompleted = Array.new # СУралцагчийн үзээгүй бүлгийг хадгалах массив
@@ -349,13 +349,13 @@ class LessonsController < ApplicationController
       session["lesson_id"] = @last_lesson_id
     end
 
-    @chapter.each do |chapter|  
+    @chapter.each do |chapter|
       @count = Lesson.where("chapter_id = ?", chapter.id).count # Бүлэг дотор хичээлийн тоо
 
-      #if @count == 0  # Хичээлгүй бүлэг эсэхийг шалгана. 
+      #if @count == 0  # Хичээлгүй бүлэг эсэхийг шалгана.
       #  next
       #end
-      
+
       if @uncomp == true
         @uncompleted << chapter
         next
@@ -365,7 +365,7 @@ class LessonsController < ApplicationController
       if @chapter_lessons_count > @student_lesson_count
         @notdo_lessons = @chapter_lessons_count - @student_lesson_count
         @chapter_lessons_count = @count # Суралцагчийн гүйцээгүй гэхдээ гүйцээж байгаа бүлгийн хичээлийн тоо
-        
+
         @do_chapter = chapter
         @uncomp = true
       else
@@ -376,7 +376,7 @@ class LessonsController < ApplicationController
 
   def show
     all_lesson
-    
+
   end
 
   def new
@@ -405,7 +405,7 @@ class LessonsController < ApplicationController
     redirect_to :index
   end
 
-  private 
+  private
     def student_info
       @student_info = Student.find(session["user_id"])
       if @student_info.picture.blank?

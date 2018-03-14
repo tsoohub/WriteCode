@@ -1,7 +1,7 @@
 <%= render '/shared/header_lesson' %>
 
 <div class="container-fluid" style="padding: 0;"> <!-- Adds 15px left/right padding -->
-  
+
   <div id="top_section">
     <div class="container">
       <div class="row">
@@ -36,7 +36,7 @@
             <p class="alignleft"><b id="big"> <%= @total_scores %> </b> нийт оноо</p>
             <p class="alignright">
               <b id="big"><%= @total_date %></b> нийт өдөр
-            </p> 
+            </p>
           </div>
           <div style="clear: both;"></div>
           <p>
@@ -71,7 +71,7 @@
       </div>
       <div class="col-md-8">
         <p><b>Бүлгүүд</b></p>
-        
+
         <% @all_badges.each_with_index do |ch, index| %>
           <% @chapter = Chapter.find(ch.chapter_id) %>
 
@@ -86,7 +86,7 @@
               <p class="alignright"><b><%= @total_points %> оноо</b> цуглуулсан <span class="glyphicon glyphicon-star" aria-hidden="true"></span> <%= @chapter.lessons.count %> / <%= @chapter.lessons.count %></p>
             </div>
             <div style="clear: both;"></div>
-            
+
             <p id="<%= index %>" class="hidden"><%= @chapter.description %></p>
           </div>
         <% end %>
@@ -106,7 +106,7 @@
 
               <p class="text-center top_margin">Хамгийн сүүлд</p>
               <p class="text-center"><b><%= @last_day %></b> өдрийн өмнө</p>
-              
+
             </div>
           </div>
 
@@ -122,7 +122,7 @@
 
               <p class="text-center top_margin">Хамгийн сүүлд</p>
               <p class="text-center"><b><%= @last_day %></b> өдрийн өмнө</p>
-              
+
             </div>
           </div>
 
@@ -138,7 +138,7 @@
 
               <p class="text-center top_margin">Хамгийн сүүлд</p>
               <p class="text-center"><b><%= @last_day %></b> өдрийн өмнө</p>
-              
+
             </div>
           </div>
         </div>
